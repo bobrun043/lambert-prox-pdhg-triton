@@ -1,0 +1,54 @@
+{
+  "schema": "lambert-prox-triton-promotion-v1",
+  "date": "2026-07-30",
+  "status": "PROMOTED_CORRECTNESS_ONLY",
+  "scope": {
+    "device_class_validated": "Tesla T4",
+    "dtype": "float32",
+    "direction": "forward_only",
+    "backends": [
+      "triton_elementwise",
+      "triton_stencil"
+    ],
+    "performance_claim": false,
+    "autograd_claim": false,
+    "amp_claim": false
+  },
+  "validation_report": {
+    "filename": "triton_validation_metrics_v2.json",
+    "sha256": "cb2a5a44aa05f7e923ea2b0525e88f42663bf149efabd4628268837b2092f582",
+    "schema": "triton-oracle-validation-v2",
+    "status": "PASS",
+    "count": 47,
+    "passed": 47,
+    "worst_scaled": 4.76837158203125e-07,
+    "environment": {
+      "torch": "2.11.0+cu128",
+      "cuda_available": true,
+      "cuda_version": "12.8",
+      "device": "Tesla T4",
+      "triton_importable": true
+    }
+  },
+  "sources": {
+    "lambert_prox_torch_v1.py": "7a262b35b66671c6e3e5602552e825213a50bb813d4855a8081047b454d9bfa5",
+    "triton_prox_canonical_v1.py": "12ab8ddb87619f91283c521ff12a4481514ee4f37077080cf5be3c768de4ae35",
+    "triton_stencil_canonical_v1.py": "cacb17459bdb25f01fa72ebf35a4939defa1a2d95058ad4a2e0a519623200c03",
+    "pdhg_promoted_v2.py": "b7dd61bffc13fe7db4144649aea4fcd7ad4d71d262f707d9814a4ffbebe4263b"
+  },
+  "provenance": {
+    "level": "post_run_package_binding",
+    "statement": "The uploaded PASS report does not embed source hashes. These hashes bind the assembled promoted package against later modification, but do not cryptographically attest which exact source bytes were executed in the original Colab run."
+  },
+  "non_claims": [
+    "SOTA",
+    "speedup",
+    "production readiness",
+    "autograd",
+    "AMP",
+    "FP16",
+    "BF16",
+    "Triton FP64",
+    "cross-GPU equivalence"
+  ]
+}

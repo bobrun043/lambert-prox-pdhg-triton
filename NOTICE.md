@@ -1,7 +1,5 @@
 # Development and claim notice
 
-Copyright 2026 Laurent Alexandre Hamza.
-
 This repository was developed by Laurent Alexandre Hamza, an independent autodidact, with extensive assistance from several generative AI systems.
 
 The software should be evaluated from its executable specifications, tests, reports, and recorded limitations—not from the authority of the author or the fluency of AI-generated prose.

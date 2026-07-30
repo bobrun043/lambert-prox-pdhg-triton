@@ -1,0 +1,26 @@
+{
+  "schema": "lambert-prox-pdhg-auto-routed-package-v1",
+  "status": "PASS",
+  "files": {
+    "README.md": "0ab52a0f681c8aaf2e59c0fc50f699eda4e99e01cbf4a23f2771694b934a2b6a",
+    "T4_ROUTING_CLOSURE_REPORT.md": "cf744f729b348ff22b247de13802c37e90a2ea86f879bae6942e1c2ed14dd00d",
+    "benchmark_promoted_routing_v1.py": "90a416ca254a2d1852905ed84231f34e4dbea9232784d994747e321f4787f628",
+    "lambert_prox_torch_v1.py": "7a262b35b66671c6e3e5602552e825213a50bb813d4855a8081047b454d9bfa5",
+    "pdhg_auto_routed_v3.py": "2c4eb14ef7eaa1ab242c87c8e00700f39de2768904983c12b936c81fb52ea6b0",
+    "pdhg_promoted_v2.py": "b7dd61bffc13fe7db4144649aea4fcd7ad4d71d262f707d9814a4ffbebe4263b",
+    "pdhg_routing_benchmark_raw_v1.json": "ea38a2643f7da8c079169bb5f3de7563aff308e860c5b1eb3e82c2e2620fbb12",
+    "pdhg_routing_benchmark_summary_v1.md": "74883141c33b082bf2bf4e1ba8d703c345bca6c2ab4b93c607fc3508a61c5f79",
+    "pdhg_routing_table_v1.json": "e4e21b82175d53d76e35a4b30b271aeae007892a8342ea0df635d46e532684d6",
+    "production_route_preview_v1.json": "176ba05f7ec91ec325aa034a510bda315ee1375a6574836fd582824761899465",
+    "promotion_manifest_v1.json": "a463aa317d8364fea15be60a080746f1abeb01900ed6ad80f938115685dad90c",
+    "routing_evidence_manifest_v1.json": "65ccf3cb925315fbb02bf9af54878bdb78ef21810f88642050562dda8637596a",
+    "routing_policy_v2.py": "a7da6295e370c66e288a412175e7bccb316efe24fd5ab05d6822038a4403502a",
+    "run_auto_routing_smoke_colab.py": "bf2ebb95b69ac188b014c03cfd4ec182fb1df176ebbac1eb7d84ffbeb18909b5",
+    "t4_routing_closure_metrics_v1.json": "2503b37526224d3d69c95f93251dc76e1cc7385956aedb33aba38ddcb9f08f03",
+    "test_pdhg_auto_routed_v3_cpu.py": "45122938003fff0caa250bf071f82f7bf53dd7ab4d18564200b4c14b23d83f44",
+    "test_routing_policy_v2.py": "7828b20a4f909c59f62f4fb8be0c8c8f044c025d3690eff376f7a3af6839b149",
+    "triton_prox_canonical_v1.py": "12ab8ddb87619f91283c521ff12a4481514ee4f37077080cf5be3c768de4ae35",
+    "triton_stencil_canonical_v1.py": "cacb17459bdb25f01fa72ebf35a4939defa1a2d95058ad4a2e0a519623200c03",
+    "triton_validation_metrics_v2.json": "cb2a5a44aa05f7e923ea2b0525e88f42663bf149efabd4628268837b2092f582"
+  }
+}

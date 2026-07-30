@@ -13,7 +13,7 @@ This repository is a research-software case study built by an independent autodi
 - periodic 2D TV-PDHG reference solver;
 - elementwise and fused stencil Triton forward kernels;
 - conservative automatic routing with explicit Torch fallback;
-- CUDA correctness reports, T4 benchmark evidence, source hashes, and a consolidated technical document.
+- CUDA correctness reports, T4 benchmark evidence, source hashes, and the evidence used by a separately distributed consolidated technical document.
 
 ## Validated scope
 
@@ -45,14 +45,21 @@ The potentially original part is the bounded engineering architecture: a bi-coor
 
 ## Quick start
 
+Requirements:
+
 ```bash
-python -m pip install -r requirements.txt
+python -m pip install numpy torch
+```
+
+CPU validation:
+
+```bash
 PYTHONPATH=. python tests/test_pdhg_promoted_v2_cpu.py
 PYTHONPATH=. python tests/test_pdhg_auto_routed_v3_cpu.py
 PYTHONPATH=. python tests/test_routing_policy_v2.py
 ```
 
-T4 smoke test:
+T4 smoke test from the repository root:
 
 ```bash
 python run_auto_routing_smoke_colab.py
@@ -68,9 +75,15 @@ y = torch.rand((1, 1, 128, 192), device="cuda", dtype=torch.float32) + 0.1
 x0 = y.clone()
 
 x, dual, info, route = pdhg_auto(
-    "gaussian", x0, y, lam_tv=0.08,
-    max_iter=100, min_iter=100, tol=0.0,
+    "gaussian",
+    x0,
+    y,
+    lam_tv=0.08,
+    max_iter=100,
+    min_iter=100,
+    tol=0.0,
 )
+
 print(route.executed_backend)
 ```
 
@@ -87,12 +100,12 @@ Explicit Triton requests never silently fall back. In `auto` mode, any mismatch 
 - `routing_policy_v2.py` — environment and evidence checks;
 - `benchmark_promoted_routing_v1.py` — paired statistical benchmark;
 - `tests/` — CPU policy and integration tests;
-- `docs/` — closure reports;
+- `docs/` — closure reports and consolidated formalization;
 - JSON/Markdown files at repository root — evidence required by the runtime manifests.
 
 ## Reproducibility and provenance
 
-`promotion_manifest_v1.json` binds the promoted correctness package. `routing_evidence_manifest_v1.json` binds the T4 routing table, raw benchmark, summary, and relevant sources. The original CUDA correctness report did not embed source hashes during execution; this limitation is stated rather than hidden.
+`promotion_manifest_v1.json` binds the promoted correctness package. `routing_evidence_manifest_v1.json` binds the T4 routing table, raw benchmark, summary, and relevant sources. The original CUDA correctness report did not embed source hashes during execution; this limitation is stated in the promotion manifest rather than hidden.
 
 ## AI assistance
 
@@ -100,7 +113,7 @@ AI systems were used for mathematical reformulation, code generation, debugging,
 
 ## Citation
 
-See `CITATION.cff`.
+See `CITATION.cff`. See `docs/FORMALISATION.md` for the canonical PDF filename and checksum.
 
 ## License
 

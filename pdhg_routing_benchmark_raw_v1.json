@@ -1,0 +1,1540 @@
+{
+  "schema": "lambert-prox-pdhg-routing-benchmark-v1",
+  "status": "PASS",
+  "environment": {
+    "python": "3.12.13",
+    "torch": "2.11.0+cu128",
+    "cuda_runtime": "12.8",
+    "device_name": "Tesla T4",
+    "compute_capability": "7.5",
+    "total_memory_bytes": 15637086208,
+    "multi_processor_count": 40,
+    "torch_tf32_matmul": false,
+    "cudnn_tf32": true,
+    "triton": "3.6.0",
+    "gpu_uuid": "GPU-b4bf2f37-da9d-c87e-4819-427ba692f1db",
+    "driver_version": "580.82.07",
+    "power_limit_w": 70.0,
+    "max_sm_clock_mhz": 1590.0,
+    "max_memory_clock_mhz": 5001.0
+  },
+  "provenance": {
+    "promotion_manifest_v1.json": "a463aa317d8364fea15be60a080746f1abeb01900ed6ad80f938115685dad90c",
+    "triton_validation_metrics_v2.json": "cb2a5a44aa05f7e923ea2b0525e88f42663bf149efabd4628268837b2092f582",
+    "lambert_prox_torch_v1.py": "7a262b35b66671c6e3e5602552e825213a50bb813d4855a8081047b454d9bfa5",
+    "triton_prox_canonical_v1.py": "12ab8ddb87619f91283c521ff12a4481514ee4f37077080cf5be3c768de4ae35",
+    "triton_stencil_canonical_v1.py": "cacb17459bdb25f01fa72ebf35a4939defa1a2d95058ad4a2e0a519623200c03",
+    "pdhg_promoted_v2.py": "b7dd61bffc13fe7db4144649aea4fcd7ad4d71d262f707d9814a4ffbebe4263b",
+    "benchmark_promoted_routing_v1.py": "90a416ca254a2d1852905ed84231f34e4dbea9232784d994747e321f4787f628"
+  },
+  "protocol": {
+    "sizes": [
+      "128x192",
+      "512x512"
+    ],
+    "repeats": 9,
+    "warmups": 2,
+    "target_sample_ms": 100.0,
+    "min_iterations": 5,
+    "max_iterations": 300,
+    "bootstrap_draws": 4000,
+    "minimum_robust_speedup": 1.1,
+    "correctness_tolerance": 8e-05,
+    "timing_scope": "fixed-iteration full pdhg API; first observed JIT calls excluded",
+    "backend_order": "randomized independently in every paired round",
+    "cuda_synchronization": "before and after every timed sample",
+    "claim_scope": "device-local routing only; no SOTA or inter-GPU claim"
+  },
+  "cases": [
+    {
+      "kind": "gaussian",
+      "height": 128,
+      "width": 192,
+      "pixels": 24576,
+      "lam_tv": 0.08,
+      "iterations_per_sample": 80,
+      "correctness": {
+        "torch": {
+          "primal_scaled": 0.0,
+          "dual_scaled": 0.0,
+          "objective": 709.2091064453125,
+          "objective_abs_delta_vs_torch": 0.0,
+          "pass": true
+        },
+        "triton_elementwise": {
+          "primal_scaled": 4.172325134277344e-07,
+          "dual_scaled": 2.7194619178771973e-07,
+          "objective": 709.2091064453125,
+          "objective_abs_delta_vs_torch": 0.0,
+          "pass": true
+        },
+        "triton_stencil": {
+          "primal_scaled": 4.172325134277344e-07,
+          "dual_scaled": 2.7194619178771973e-07,
+          "objective": 709.2091064453125,
+          "objective_abs_delta_vs_torch": 0.0,
+          "pass": true
+        }
+      },
+      "backends": {
+        "torch": {
+          "first_observed_call_seconds": 0.004852784999911819,
+          "timing": {
+            "samples_seconds": [
+              0.0935705560000315,
+              0.09617795200028922,
+              0.12106169999970007,
+              0.13012895000019853,
+              0.15859332499985612,
+              0.14353774399978647,
+              0.12810366700023224,
+              0.12282074799986731,
+              0.1268375869999545
+            ],
+            "count": 9,
+            "median_seconds": 0.1268375869999545,
+            "mean_seconds": 0.12453691433332399,
+            "std_seconds": 0.02045826468779779,
+            "mad_seconds": 0.005775887000254443,
+            "p10_seconds": 0.09565647280023767,
+            "p25_seconds": 0.12106169999970007,
+            "p75_seconds": 0.13012895000019853,
+            "p90_seconds": 0.1465488601998004,
+            "median_us_per_iteration": 1585.4698374994314,
+            "median_ns_per_pixel_iteration": 64.51293284095993
+          },
+          "memory": {
+            "baseline_allocated_bytes": 1081344,
+            "baseline_reserved_bytes": 2097152,
+            "peak_allocated_bytes": 2261504,
+            "peak_reserved_bytes": 4194304,
+            "incremental_peak_allocated_bytes": 1180160,
+            "incremental_peak_reserved_bytes": 2097152
+          }
+        },
+        "triton_elementwise": {
+          "first_observed_call_seconds": 0.0041903270002876525,
+          "timing": {
+            "samples_seconds": [
+              0.0942547370000284,
+              0.07731821300012598,
+              0.10635336700033804,
+              0.1078402820003248,
+              0.08732320799981608,
+              0.10234591800008275,
+              0.09971185899985358,
+              0.09908134399984192,
+              0.11003845200002615
+            ],
+            "count": 9,
+            "median_seconds": 0.09971185899985358,
+            "mean_seconds": 0.09825193111115975,
+            "std_seconds": 0.010545774973237967,
+            "mad_seconds": 0.006641508000484464,
+            "p10_seconds": 0.08532220899987805,
+            "p25_seconds": 0.0942547370000284,
+            "p75_seconds": 0.10635336700033804,
+            "p90_seconds": 0.10827991600026507,
+            "median_us_per_iteration": 1246.3982374981697,
+            "median_ns_per_pixel_iteration": 50.71607411695027
+          },
+          "memory": {
+            "baseline_allocated_bytes": 1081344,
+            "baseline_reserved_bytes": 2097152,
+            "peak_allocated_bytes": 2261504,
+            "peak_reserved_bytes": 4194304,
+            "incremental_peak_allocated_bytes": 1180160,
+            "incremental_peak_reserved_bytes": 2097152
+          }
+        },
+        "triton_stencil": {
+          "first_observed_call_seconds": 0.003197328999704041,
+          "timing": {
+            "samples_seconds": [
+              0.04018466299976353,
+              0.03909874300006777,
+              0.055595631999949546,
+              0.05732386299996506,
+              0.06001451099973565,
+              0.05240788099990823,
+              0.054016425000099844,
+              0.053029568000056315,
+              0.054866509000021324
+            ],
+            "count": 9,
+            "median_seconds": 0.054016425000099844,
+            "mean_seconds": 0.0518375327777297,
+            "std_seconds": 0.007287152687384542,
+            "mad_seconds": 0.001608544000191614,
+            "p10_seconds": 0.03996747899982438,
+            "p25_seconds": 0.05240788099990823,
+            "p75_seconds": 0.055595631999949546,
+            "p90_seconds": 0.05786199259991918,
+            "median_us_per_iteration": 675.205312501248,
+            "median_ns_per_pixel_iteration": 27.4741744995625
+          },
+          "memory": {
+            "baseline_allocated_bytes": 1081344,
+            "baseline_reserved_bytes": 2097152,
+            "peak_allocated_bytes": 2261504,
+            "peak_reserved_bytes": 4194304,
+            "incremental_peak_allocated_bytes": 1180160,
+            "incremental_peak_reserved_bytes": 2097152
+          }
+        }
+      },
+      "routing_decision": {
+        "selected_backend": "triton_stencil",
+        "reason": "paired bootstrap lower 95% bound >= 1.10x",
+        "speedup_vs_torch": {
+          "paired_median_speedup": 2.328514139849378,
+          "ci95_low": 2.27006595839987,
+          "ci95_high": 2.6425829746501592
+        },
+        "median_seconds": 0.054016425000099844,
+        "torch_median_seconds": 0.1268375869999545
+      }
+    },
+    {
+      "kind": "poisson_intensity",
+      "height": 128,
+      "width": 192,
+      "pixels": 24576,
+      "lam_tv": 0.04,
+      "iterations_per_sample": 52,
+      "correctness": {
+        "torch": {
+          "primal_scaled": 0.0,
+          "dual_scaled": 0.0,
+          "objective": 6988.17529296875,
+          "objective_abs_delta_vs_torch": 0.0,
+          "pass": true
+        },
+        "triton_elementwise": {
+          "primal_scaled": 5.920954322391481e-07,
+          "dual_scaled": 9.480863809585571e-07,
+          "objective": 6988.1748046875,
+          "objective_abs_delta_vs_torch": 0.00048828125,
+          "pass": true
+        },
+        "triton_stencil": {
+          "primal_scaled": 5.920954322391481e-07,
+          "dual_scaled": 9.51811671257019e-07,
+          "objective": 6988.1748046875,
+          "objective_abs_delta_vs_torch": 0.00048828125,
+          "pass": true
+        }
+      },
+      "backends": {
+        "torch": {
+          "first_observed_call_seconds": 0.005619456999738759,
+          "timing": {
+            "samples_seconds": [
+              0.09303138299992497,
+              0.10264480599971648,
+              0.11337844099989525,
+              0.1045807519999471,
+              0.07703479300016625,
+              0.07307701899981112,
+              0.07502551300012783,
+              0.07366838600000847,
+              0.08811439400005838
+            ],
+            "count": 9,
+            "median_seconds": 0.08811439400005838,
+            "mean_seconds": 0.08895060966662843,
+            "std_seconds": 0.015277906919423915,
+            "mad_seconds": 0.014446008000049915,
+            "p10_seconds": 0.07355011259996899,
+            "p25_seconds": 0.07502551300012783,
+            "p75_seconds": 0.10264480599971648,
+            "p90_seconds": 0.10634028979993673,
+            "median_us_per_iteration": 1694.5075769241996,
+            "median_ns_per_pixel_iteration": 68.94968981625162
+          },
+          "memory": {
+            "baseline_allocated_bytes": 1081344,
+            "baseline_reserved_bytes": 2097152,
+            "peak_allocated_bytes": 2482688,
+            "peak_reserved_bytes": 4194304,
+            "incremental_peak_allocated_bytes": 1401344,
+            "incremental_peak_reserved_bytes": 2097152
+          }
+        },
+        "triton_elementwise": {
+          "first_observed_call_seconds": 0.005319414000041434,
+          "timing": {
+            "samples_seconds": [
+              0.0692911969999841,
+              0.07714138499977707,
+              0.07356149799988998,
+              0.052668905000246014,
+              0.0508089929999187,
+              0.06436841200002164,
+              0.0496689689998675,
+              0.05766965499969956,
+              0.052812767999967036
+            ],
+            "count": 9,
+            "median_seconds": 0.05766965499969956,
+            "mean_seconds": 0.06088797577770796,
+            "std_seconds": 0.010476704758112564,
+            "mad_seconds": 0.006860661999780859,
+            "p10_seconds": 0.05058098819990846,
+            "p25_seconds": 0.052668905000246014,
+            "p75_seconds": 0.0692911969999841,
+            "p90_seconds": 0.0742774753998674,
+            "median_us_per_iteration": 1109.0318269172992,
+            "median_ns_per_pixel_iteration": 45.126620561413546
+          },
+          "memory": {
+            "baseline_allocated_bytes": 1081344,
+            "baseline_reserved_bytes": 2097152,
+            "peak_allocated_bytes": 2261504,
+            "peak_reserved_bytes": 4194304,
+            "incremental_peak_allocated_bytes": 1180160,
+            "incremental_peak_reserved_bytes": 2097152
+          }
+        },
+        "triton_stencil": {
+          "first_observed_call_seconds": 0.004226123000080406,
+          "timing": {
+            "samples_seconds": [
+              0.03994240100018942,
+              0.03360117500005799,
+              0.04216683799995735,
+              0.05863077799995153,
+              0.025672750000012456,
+              0.026581073999750515,
+              0.02614969200021733,
+              0.0258285199997772,
+              0.025921617000221886
+            ],
+            "count": 9,
+            "median_seconds": 0.026581073999750515,
+            "mean_seconds": 0.033832760555570635,
+            "std_seconds": 0.011328262146497719,
+            "mad_seconds": 0.0009083239997380588,
+            "p10_seconds": 0.02579736599982425,
+            "p25_seconds": 0.025921617000221886,
+            "p75_seconds": 0.03994240100018942,
+            "p90_seconds": 0.04545962599995619,
+            "median_us_per_iteration": 511.1744999952022,
+            "median_ns_per_pixel_iteration": 20.799743652148525
+          },
+          "memory": {
+            "baseline_allocated_bytes": 1081344,
+            "baseline_reserved_bytes": 2097152,
+            "peak_allocated_bytes": 2261504,
+            "peak_reserved_bytes": 4194304,
+            "incremental_peak_allocated_bytes": 1180160,
+            "incremental_peak_reserved_bytes": 2097152
+          }
+        }
+      },
+      "routing_decision": {
+        "selected_backend": "triton_stencil",
+        "reason": "paired bootstrap lower 95% bound >= 1.10x",
+        "speedup_vs_torch": {
+          "paired_median_speedup": 2.852210889382897,
+          "ci95_low": 2.3291384761643092,
+          "ci95_high": 3.05479811344512
+        },
+        "median_seconds": 0.026581073999750515,
+        "torch_median_seconds": 0.08811439400005838
+      }
+    },
+    {
+      "kind": "poisson_log",
+      "height": 128,
+      "width": 192,
+      "pixels": 24576,
+      "lam_tv": 0.04,
+      "iterations_per_sample": 21,
+      "correctness": {
+        "torch": {
+          "primal_scaled": 0.0,
+          "dual_scaled": 0.0,
+          "objective": 15533.0712890625,
+          "objective_abs_delta_vs_torch": 0.0,
+          "pass": true
+        },
+        "triton_elementwise": {
+          "primal_scaled": 1.0371036296419334e-06,
+          "dual_scaled": 3.0081719160079956e-07,
+          "objective": 15533.0703125,
+          "objective_abs_delta_vs_torch": 0.0009765625,
+          "pass": true
+        },
+        "triton_stencil": {
+          "primal_scaled": 1.0371036296419334e-06,
+          "dual_scaled": 2.4959444999694824e-07,
+          "objective": 15533.0703125,
+          "objective_abs_delta_vs_torch": 0.0009765625,
+          "pass": true
+        }
+      },
+      "backends": {
+        "torch": {
+          "first_observed_call_seconds": 0.013311918999988848,
+          "timing": {
+            "samples_seconds": [
+              0.09727988199983884,
+              0.09785071400028755,
+              0.09811495500025558,
+              0.10028995399989071,
+              0.09653103200025726,
+              0.1121451750000233,
+              0.10214773799998511,
+              0.09719473299992387,
+              0.09964222799999334
+            ],
+            "count": 9,
+            "median_seconds": 0.09811495500025558,
+            "mean_seconds": 0.10013293455560618,
+            "std_seconds": 0.004843116415059135,
+            "mad_seconds": 0.001527272999737761,
+            "p10_seconds": 0.09706199279999055,
+            "p25_seconds": 0.09727988199983884,
+            "p75_seconds": 0.10028995399989071,
+            "p90_seconds": 0.10414722539999276,
+            "median_us_per_iteration": 4672.140714297884,
+            "median_ns_per_pixel_iteration": 190.1098923461053
+          },
+          "memory": {
+            "baseline_allocated_bytes": 1081344,
+            "baseline_reserved_bytes": 4194304,
+            "peak_allocated_bytes": 5284864,
+            "peak_reserved_bytes": 6291456,
+            "incremental_peak_allocated_bytes": 4203520,
+            "incremental_peak_reserved_bytes": 2097152
+          }
+        },
+        "triton_elementwise": {
+          "first_observed_call_seconds": 0.004327068999828043,
+          "timing": {
+            "samples_seconds": [
+              0.02204100400012976,
+              0.021905816000071354,
+              0.029119966000052955,
+              0.02396358899977713,
+              0.023972618999778206,
+              0.02378166600010445,
+              0.021485203999873193,
+              0.021920442999999068,
+              0.021918778999861388
+            ],
+            "count": 9,
+            "median_seconds": 0.02204100400012976,
+            "mean_seconds": 0.023345453999960835,
+            "std_seconds": 0.0023877665271337498,
+            "mad_seconds": 0.0005558000002565677,
+            "p10_seconds": 0.021821693600031722,
+            "p25_seconds": 0.021918778999861388,
+            "p75_seconds": 0.02396358899977713,
+            "p90_seconds": 0.025002088399833155,
+            "median_us_per_iteration": 1049.571619053798,
+            "median_ns_per_pixel_iteration": 42.70717850967603
+          },
+          "memory": {
+            "baseline_allocated_bytes": 1081344,
+            "baseline_reserved_bytes": 4194304,
+            "peak_allocated_bytes": 2261504,
+            "peak_reserved_bytes": 4194304,
+            "incremental_peak_allocated_bytes": 1180160,
+            "incremental_peak_reserved_bytes": 0
+          }
+        },
+        "triton_stencil": {
+          "first_observed_call_seconds": 0.003084219999891502,
+          "timing": {
+            "samples_seconds": [
+              0.01286971799981984,
+              0.012020092000057048,
+              0.011750516999654792,
+              0.012164083000243409,
+              0.012132912000197393,
+              0.01220003100024769,
+              0.012073175000296033,
+              0.014020733000052132,
+              0.012162486999841349
+            ],
+            "count": 9,
+            "median_seconds": 0.012162486999841349,
+            "mean_seconds": 0.012377083111156631,
+            "std_seconds": 0.0006836528263465476,
+            "mad_seconds": 8.931199954531621e-05,
+            "p10_seconds": 0.011966176999976597,
+            "p25_seconds": 0.012073175000296033,
+            "p75_seconds": 0.01220003100024769,
+            "p90_seconds": 0.0130999209998663,
+            "median_us_per_iteration": 579.1660476114928,
+            "median_ns_per_pixel_iteration": 23.56632680710827
+          },
+          "memory": {
+            "baseline_allocated_bytes": 1081344,
+            "baseline_reserved_bytes": 4194304,
+            "peak_allocated_bytes": 2261504,
+            "peak_reserved_bytes": 4194304,
+            "incremental_peak_allocated_bytes": 1180160,
+            "incremental_peak_reserved_bytes": 0
+          }
+        }
+      },
+      "routing_decision": {
+        "selected_backend": "triton_stencil",
+        "reason": "paired bootstrap lower 95% bound >= 1.10x",
+        "speedup_vs_torch": {
+          "paired_median_speedup": 8.192586598554481,
+          "ci95_low": 7.558820014642172,
+          "ci95_high": 8.460718741961452
+        },
+        "median_seconds": 0.012162486999841349,
+        "torch_median_seconds": 0.09811495500025558
+      }
+    },
+    {
+      "kind": "kl",
+      "height": 128,
+      "width": 192,
+      "pixels": 24576,
+      "lam_tv": 0.03,
+      "iterations_per_sample": 20,
+      "correctness": {
+        "torch": {
+          "primal_scaled": 0.0,
+          "dual_scaled": 0.0,
+          "objective": 354.7247009277344,
+          "objective_abs_delta_vs_torch": 0.0,
+          "pass": true
+        },
+        "triton_elementwise": {
+          "primal_scaled": 3.5762786865234375e-07,
+          "dual_scaled": 2.8219074010849e-07,
+          "objective": 354.7247009277344,
+          "objective_abs_delta_vs_torch": 0.0,
+          "pass": true
+        },
+        "triton_stencil": {
+          "primal_scaled": 3.5762786865234375e-07,
+          "dual_scaled": 2.8312206268310547e-07,
+          "objective": 354.72467041015625,
+          "objective_abs_delta_vs_torch": 3.0517578125e-05,
+          "pass": true
+        }
+      },
+      "backends": {
+        "torch": {
+          "first_observed_call_seconds": 0.012073374000010517,
+          "timing": {
+            "samples_seconds": [
+              0.09601351699984662,
+              0.09862936299987268,
+              0.09605837299977793,
+              0.09619589100020676,
+              0.09966155700021773,
+              0.09615614099993763,
+              0.0965350500000568,
+              0.11022266100007982,
+              0.09587183700023161
+            ],
+            "count": 9,
+            "median_seconds": 0.09619589100020676,
+            "mean_seconds": 0.09837159888891417,
+            "std_seconds": 0.004641569662225348,
+            "mad_seconds": 0.00032405399997514905,
+            "p10_seconds": 0.09598518099992362,
+            "p25_seconds": 0.09605837299977793,
+            "p75_seconds": 0.09862936299987268,
+            "p90_seconds": 0.10177377780019015,
+            "median_us_per_iteration": 4809.794550010338,
+            "median_ns_per_pixel_iteration": 195.71104126018628
+          },
+          "memory": {
+            "baseline_allocated_bytes": 1081344,
+            "baseline_reserved_bytes": 6291456,
+            "peak_allocated_bytes": 5309440,
+            "peak_reserved_bytes": 6291456,
+            "incremental_peak_allocated_bytes": 4228096,
+            "incremental_peak_reserved_bytes": 0
+          }
+        },
+        "triton_elementwise": {
+          "first_observed_call_seconds": 0.004701784000189946,
+          "timing": {
+            "samples_seconds": [
+              0.02083711300019786,
+              0.021352406999994855,
+              0.022851270999581175,
+              0.022954545999709808,
+              0.020873550000032992,
+              0.021500242999991315,
+              0.021092741999837017,
+              0.021431506000226364,
+              0.02700100999982169
+            ],
+            "count": 9,
+            "median_seconds": 0.021431506000226364,
+            "mean_seconds": 0.02221048755548812,
+            "std_seconds": 0.001958437142709538,
+            "mad_seconds": 0.0005579560001933714,
+            "p10_seconds": 0.020866262600065966,
+            "p25_seconds": 0.021092741999837017,
+            "p75_seconds": 0.022851270999581175,
+            "p90_seconds": 0.023763838799732186,
+            "median_us_per_iteration": 1071.5753000113182,
+            "median_ns_per_pixel_iteration": 43.60251057988762
+          },
+          "memory": {
+            "baseline_allocated_bytes": 1081344,
+            "baseline_reserved_bytes": 6291456,
+            "peak_allocated_bytes": 2261504,
+            "peak_reserved_bytes": 6291456,
+            "incremental_peak_allocated_bytes": 1180160,
+            "incremental_peak_reserved_bytes": 0
+          }
+        },
+        "triton_stencil": {
+          "first_observed_call_seconds": 0.003732323999884102,
+          "timing": {
+            "samples_seconds": [
+              0.012050061000081769,
+              0.013353065000046627,
+              0.01144890800014764,
+              0.01181866800015996,
+              0.01466607699967426,
+              0.013092773999687779,
+              0.014515893999941909,
+              0.011986734999936743,
+              0.011471344999790745
+            ],
+            "count": 9,
+            "median_seconds": 0.012050061000081769,
+            "mean_seconds": 0.012711502999940826,
+            "std_seconds": 0.0012512614777309152,
+            "mad_seconds": 0.0006011529999341292,
+            "p10_seconds": 0.011466857599862124,
+            "p25_seconds": 0.01181866800015996,
+            "p75_seconds": 0.013353065000046627,
+            "p90_seconds": 0.014545930599888379,
+            "median_us_per_iteration": 602.5030500040884,
+            "median_ns_per_pixel_iteration": 24.51591186540073
+          },
+          "memory": {
+            "baseline_allocated_bytes": 1081344,
+            "baseline_reserved_bytes": 6291456,
+            "peak_allocated_bytes": 2261504,
+            "peak_reserved_bytes": 6291456,
+            "incremental_peak_allocated_bytes": 1180160,
+            "incremental_peak_reserved_bytes": 0
+          }
+        }
+      },
+      "routing_decision": {
+        "selected_backend": "triton_stencil",
+        "reason": "paired bootstrap lower 95% bound >= 1.10x",
+        "speedup_vs_torch": {
+          "paired_median_speedup": 7.967886386566432,
+          "ci95_low": 6.795379364395213,
+          "ci95_high": 8.390177735600567
+        },
+        "median_seconds": 0.012050061000081769,
+        "torch_median_seconds": 0.09619589100020676
+      }
+    },
+    {
+      "kind": "xlogx",
+      "height": 128,
+      "width": 192,
+      "pixels": 24576,
+      "lam_tv": 0.01,
+      "iterations_per_sample": 22,
+      "correctness": {
+        "torch": {
+          "primal_scaled": 0.0,
+          "dual_scaled": 0.0,
+          "objective": -9040.966796875,
+          "objective_abs_delta_vs_torch": 0.0,
+          "pass": true
+        },
+        "triton_elementwise": {
+          "primal_scaled": 1.4901161193847656e-07,
+          "dual_scaled": 1.1315569281578064e-07,
+          "objective": -9040.966796875,
+          "objective_abs_delta_vs_torch": 0.0,
+          "pass": true
+        },
+        "triton_stencil": {
+          "primal_scaled": 1.1920928955078125e-07,
+          "dual_scaled": 1.1175870895385742e-07,
+          "objective": -9040.966796875,
+          "objective_abs_delta_vs_torch": 0.0,
+          "pass": true
+        }
+      },
+      "backends": {
+        "torch": {
+          "first_observed_call_seconds": 0.011195581999800197,
+          "timing": {
+            "samples_seconds": [
+              0.0976861590002045,
+              0.1118767839998327,
+              0.10445125599972016,
+              0.09988130900001124,
+              0.09894200999997338,
+              0.10092818200018883,
+              0.10107150700014245,
+              0.10103345900006389,
+              0.11186632399994778
+            ],
+            "count": 9,
+            "median_seconds": 0.10103345900006389,
+            "mean_seconds": 0.1030818877777872,
+            "std_seconds": 0.0053122971737658686,
+            "mad_seconds": 0.002091449000090506,
+            "p10_seconds": 0.09869083980001961,
+            "p25_seconds": 0.09988130900001124,
+            "p75_seconds": 0.10445125599972016,
+            "p90_seconds": 0.11186841599992477,
+            "median_us_per_iteration": 4592.429954548358,
+            "median_ns_per_pixel_iteration": 186.86645322869296
+          },
+          "memory": {
+            "baseline_allocated_bytes": 983040,
+            "baseline_reserved_bytes": 6291456,
+            "peak_allocated_bytes": 5186560,
+            "peak_reserved_bytes": 6291456,
+            "incremental_peak_allocated_bytes": 4203520,
+            "incremental_peak_reserved_bytes": 0
+          }
+        },
+        "triton_elementwise": {
+          "first_observed_call_seconds": 0.00440163199982635,
+          "timing": {
+            "samples_seconds": [
+              0.022810379000020475,
+              0.023096515999895928,
+              0.022556209999947896,
+              0.022318777000236878,
+              0.02391206799984502,
+              0.02223570199976166,
+              0.022613746999923023,
+              0.02567323200037208,
+              0.02300346999982139
+            ],
+            "count": 9,
+            "median_seconds": 0.022810379000020475,
+            "mean_seconds": 0.02313556677775826,
+            "std_seconds": 0.0010754227574903978,
+            "mad_seconds": 0.0002861369998754526,
+            "p10_seconds": 0.022302162000141835,
+            "p25_seconds": 0.022556209999947896,
+            "p75_seconds": 0.023096515999895928,
+            "p90_seconds": 0.024264300799950435,
+            "median_us_per_iteration": 1036.83540909184,
+            "median_ns_per_pixel_iteration": 42.188940799635404
+          },
+          "memory": {
+            "baseline_allocated_bytes": 983040,
+            "baseline_reserved_bytes": 6291456,
+            "peak_allocated_bytes": 2163200,
+            "peak_reserved_bytes": 6291456,
+            "incremental_peak_allocated_bytes": 1180160,
+            "incremental_peak_reserved_bytes": 0
+          }
+        },
+        "triton_stencil": {
+          "first_observed_call_seconds": 0.003123107000192249,
+          "timing": {
+            "samples_seconds": [
+              0.011992917000043235,
+              0.01353123399985634,
+              0.01246411000010994,
+              0.012646314999983588,
+              0.011593371000344632,
+              0.013072552999801701,
+              0.012227511999753915,
+              0.012648838000131946,
+              0.01602555800036498
+            ],
+            "count": 9,
+            "median_seconds": 0.012646314999983588,
+            "mean_seconds": 0.01291137866671003,
+            "std_seconds": 0.0012988425612298527,
+            "mad_seconds": 0.00042623799981811317,
+            "p10_seconds": 0.011913007800103514,
+            "p25_seconds": 0.012227511999753915,
+            "p75_seconds": 0.013072552999801701,
+            "p90_seconds": 0.014030098799958068,
+            "median_us_per_iteration": 574.832499999254,
+            "median_ns_per_pixel_iteration": 23.389994303355063
+          },
+          "memory": {
+            "baseline_allocated_bytes": 983040,
+            "baseline_reserved_bytes": 6291456,
+            "peak_allocated_bytes": 2163200,
+            "peak_reserved_bytes": 6291456,
+            "incremental_peak_allocated_bytes": 1180160,
+            "incremental_peak_reserved_bytes": 0
+          }
+        }
+      },
+      "routing_decision": {
+        "selected_backend": "triton_stencil",
+        "reason": "paired bootstrap lower 95% bound >= 1.10x",
+        "speedup_vs_torch": {
+          "paired_median_speedup": 8.145321025723128,
+          "ci95_low": 7.720617541326458,
+          "ci95_high": 8.38016159988951
+        },
+        "median_seconds": 0.012646314999983588,
+        "torch_median_seconds": 0.10103345900006389
+      }
+    },
+    {
+      "kind": "gaussian",
+      "height": 512,
+      "width": 512,
+      "pixels": 262144,
+      "lam_tv": 0.08,
+      "iterations_per_sample": 76,
+      "correctness": {
+        "torch": {
+          "primal_scaled": 0.0,
+          "dual_scaled": 0.0,
+          "objective": 7597.318359375,
+          "objective_abs_delta_vs_torch": 0.0,
+          "pass": true
+        },
+        "triton_elementwise": {
+          "primal_scaled": 4.172325134277344e-07,
+          "dual_scaled": 3.334134817123413e-07,
+          "objective": 7597.31884765625,
+          "objective_abs_delta_vs_torch": 0.00048828125,
+          "pass": true
+        },
+        "triton_stencil": {
+          "primal_scaled": 4.76837158203125e-07,
+          "dual_scaled": 3.557652235031128e-07,
+          "objective": 7597.3193359375,
+          "objective_abs_delta_vs_torch": 0.0009765625,
+          "pass": true
+        }
+      },
+      "backends": {
+        "torch": {
+          "first_observed_call_seconds": 0.005015629000354238,
+          "timing": {
+            "samples_seconds": [
+              0.09150225399980627,
+              0.0917433859999619,
+              0.08941588700008651,
+              0.0944068660000994,
+              0.09564026299995021,
+              0.08973042799971154,
+              0.09467487099982463,
+              0.09056736000002275,
+              0.08940706200019122
+            ],
+            "count": 9,
+            "median_seconds": 0.09150225399980627,
+            "mean_seconds": 0.09189870855551716,
+            "std_seconds": 0.0024244869981436767,
+            "mad_seconds": 0.0020863669997197576,
+            "p10_seconds": 0.08941412200010745,
+            "p25_seconds": 0.08973042799971154,
+            "p75_seconds": 0.0944068660000994,
+            "p90_seconds": 0.09486794939984974,
+            "median_us_per_iteration": 1203.9770263132405,
+            "median_ns_per_pixel_iteration": 4.592807870152437
+          },
+          "memory": {
+            "baseline_allocated_bytes": 11534336,
+            "baseline_reserved_bytes": 29360128,
+            "peak_allocated_bytes": 24117760,
+            "peak_reserved_bytes": 35651584,
+            "incremental_peak_allocated_bytes": 12583424,
+            "incremental_peak_reserved_bytes": 6291456
+          }
+        },
+        "triton_elementwise": {
+          "first_observed_call_seconds": 0.09050142400019467,
+          "timing": {
+            "samples_seconds": [
+              0.07411694299980809,
+              0.0807498190001752,
+              0.0745431830000598,
+              0.07433661499999289,
+              0.08819869700027994,
+              0.07559285399975124,
+              0.07475424500034933,
+              0.07540575799976068,
+              0.07336602099985612
+            ],
+            "count": 9,
+            "median_seconds": 0.07475424500034933,
+            "mean_seconds": 0.07678490388889259,
+            "std_seconds": 0.0047862829185879125,
+            "mad_seconds": 0.0006515129994113522,
+            "p10_seconds": 0.07396675859981769,
+            "p25_seconds": 0.07433661499999289,
+            "p75_seconds": 0.07559285399975124,
+            "p90_seconds": 0.08223959460019614,
+            "median_us_per_iteration": 983.6084868467017,
+            "median_ns_per_pixel_iteration": 3.752168605219657
+          },
+          "memory": {
+            "baseline_allocated_bytes": 11534336,
+            "baseline_reserved_bytes": 29360128,
+            "peak_allocated_bytes": 24117760,
+            "peak_reserved_bytes": 35651584,
+            "incremental_peak_allocated_bytes": 12583424,
+            "incremental_peak_reserved_bytes": 6291456
+          }
+        },
+        "triton_stencil": {
+          "first_observed_call_seconds": 0.3276787639997565,
+          "timing": {
+            "samples_seconds": [
+              0.04186621200005902,
+              0.039314891000231,
+              0.03947435400004906,
+              0.03960480699970503,
+              0.03885152600014408,
+              0.04033313600029942,
+              0.03976926999985153,
+              0.03807176400005119,
+              0.03915106700014803
+            ],
+            "count": 9,
+            "median_seconds": 0.03947435400004906,
+            "mean_seconds": 0.03960411411117093,
+            "std_seconds": 0.0010545177706216481,
+            "mad_seconds": 0.00032328699990102905,
+            "p10_seconds": 0.0386955736001255,
+            "p25_seconds": 0.03915106700014803,
+            "p75_seconds": 0.03976926999985153,
+            "p90_seconds": 0.04063975120025134,
+            "median_us_per_iteration": 519.3993947374877,
+            "median_ns_per_pixel_iteration": 1.9813514508723742
+          },
+          "memory": {
+            "baseline_allocated_bytes": 11534336,
+            "baseline_reserved_bytes": 29360128,
+            "peak_allocated_bytes": 24117760,
+            "peak_reserved_bytes": 35651584,
+            "incremental_peak_allocated_bytes": 12583424,
+            "incremental_peak_reserved_bytes": 6291456
+          }
+        }
+      },
+      "routing_decision": {
+        "selected_backend": "triton_stencil",
+        "reason": "paired bootstrap lower 95% bound >= 1.10x",
+        "speedup_vs_torch": {
+          "paired_median_speedup": 2.333553105855561,
+          "ci95_low": 2.2247322399886142,
+          "ci95_high": 2.3837224102822296
+        },
+        "median_seconds": 0.03947435400004906,
+        "torch_median_seconds": 0.09150225399980627
+      }
+    },
+    {
+      "kind": "poisson_intensity",
+      "height": 512,
+      "width": 512,
+      "pixels": 262144,
+      "lam_tv": 0.04,
+      "iterations_per_sample": 51,
+      "correctness": {
+        "torch": {
+          "primal_scaled": 0.0,
+          "dual_scaled": 0.0,
+          "objective": 73918.390625,
+          "objective_abs_delta_vs_torch": 0.0,
+          "pass": true
+        },
+        "triton_elementwise": {
+          "primal_scaled": 6.310937123998883e-07,
+          "dual_scaled": 1.1236406862735748e-06,
+          "objective": 73918.390625,
+          "objective_abs_delta_vs_torch": 0.0,
+          "pass": true
+        },
+        "triton_stencil": {
+          "primal_scaled": 6.310937123998883e-07,
+          "dual_scaled": 1.1243391782045364e-06,
+          "objective": 73918.390625,
+          "objective_abs_delta_vs_torch": 0.0,
+          "pass": true
+        }
+      },
+      "backends": {
+        "torch": {
+          "first_observed_call_seconds": 0.005120302000250376,
+          "timing": {
+            "samples_seconds": [
+              0.10062823399994159,
+              0.09622871500005203,
+              0.1055527980001898,
+              0.09738155200011533,
+              0.11145141699989836,
+              0.10016040700020312,
+              0.11619486900008269,
+              0.11570370000026742,
+              0.11728424600005383
+            ],
+            "count": 9,
+            "median_seconds": 0.1055527980001898,
+            "mean_seconds": 0.10673177088897824,
+            "std_seconds": 0.008538459078510325,
+            "mad_seconds": 0.008171246000074461,
+            "p10_seconds": 0.09715098460010267,
+            "p25_seconds": 0.10016040700020312,
+            "p75_seconds": 0.11570370000026742,
+            "p90_seconds": 0.11641274440007691,
+            "median_us_per_iteration": 2069.6627058860745,
+            "median_ns_per_pixel_iteration": 7.895136664909646
+          },
+          "memory": {
+            "baseline_allocated_bytes": 11534336,
+            "baseline_reserved_bytes": 27262976,
+            "peak_allocated_bytes": 26477056,
+            "peak_reserved_bytes": 37748736,
+            "incremental_peak_allocated_bytes": 14942720,
+            "incremental_peak_reserved_bytes": 10485760
+          }
+        },
+        "triton_elementwise": {
+          "first_observed_call_seconds": 0.18052236599987737,
+          "timing": {
+            "samples_seconds": [
+              0.06614738799999031,
+              0.09077533099980428,
+              0.06340225900021323,
+              0.06567990199982887,
+              0.08748855400017419,
+              0.06704012199998033,
+              0.06679565200010984,
+              0.08187526399979106,
+              0.053323768000154814
+            ],
+            "count": 9,
+            "median_seconds": 0.06679565200010984,
+            "mean_seconds": 0.07139202666667188,
+            "std_seconds": 0.012425818081280755,
+            "mad_seconds": 0.003393392999896605,
+            "p10_seconds": 0.06138656080020155,
+            "p25_seconds": 0.06567990199982887,
+            "p75_seconds": 0.08187526399979106,
+            "p90_seconds": 0.08814590940010021,
+            "median_us_per_iteration": 1309.7186666688203,
+            "median_ns_per_pixel_iteration": 4.99618021647957
+          },
+          "memory": {
+            "baseline_allocated_bytes": 11534336,
+            "baseline_reserved_bytes": 27262976,
+            "peak_allocated_bytes": 24117760,
+            "peak_reserved_bytes": 33554432,
+            "incremental_peak_allocated_bytes": 12583424,
+            "incremental_peak_reserved_bytes": 6291456
+          }
+        },
+        "triton_stencil": {
+          "first_observed_call_seconds": 0.35683870499997283,
+          "timing": {
+            "samples_seconds": [
+              0.03838715499978207,
+              0.03561152599968409,
+              0.03578875700031858,
+              0.03500660899999275,
+              0.03739848300028825,
+              0.03947823899989089,
+              0.04330541799981802,
+              0.046301634999963426,
+              0.04737035599964656
+            ],
+            "count": 9,
+            "median_seconds": 0.03838715499978207,
+            "mean_seconds": 0.03984979755548718,
+            "std_seconds": 0.004694732580074348,
+            "mad_seconds": 0.002775629000097979,
+            "p10_seconds": 0.03549054259974582,
+            "p25_seconds": 0.03578875700031858,
+            "p75_seconds": 0.04330541799981802,
+            "p90_seconds": 0.04651537919990005,
+            "median_us_per_iteration": 752.689313721217,
+            "median_ns_per_pixel_iteration": 2.8712818669174847
+          },
+          "memory": {
+            "baseline_allocated_bytes": 11534336,
+            "baseline_reserved_bytes": 27262976,
+            "peak_allocated_bytes": 24117760,
+            "peak_reserved_bytes": 33554432,
+            "incremental_peak_allocated_bytes": 12583424,
+            "incremental_peak_reserved_bytes": 6291456
+          }
+        }
+      },
+      "routing_decision": {
+        "selected_backend": "triton_stencil",
+        "reason": "paired bootstrap lower 95% bound >= 1.10x",
+        "speedup_vs_torch": {
+          "paired_median_speedup": 2.683148538147605,
+          "ci95_low": 2.498911755499753,
+          "ci95_high": 2.781804772925464
+        },
+        "median_seconds": 0.03838715499978207,
+        "torch_median_seconds": 0.1055527980001898
+      }
+    },
+    {
+      "kind": "poisson_log",
+      "height": 512,
+      "width": 512,
+      "pixels": 262144,
+      "lam_tv": 0.04,
+      "iterations_per_sample": 16,
+      "correctness": {
+        "torch": {
+          "primal_scaled": 0.0,
+          "dual_scaled": 0.0,
+          "objective": 165115.578125,
+          "objective_abs_delta_vs_torch": 0.0,
+          "pass": true
+        },
+        "triton_elementwise": {
+          "primal_scaled": 1.5706172007412533e-06,
+          "dual_scaled": 6.649643182754517e-07,
+          "objective": 165115.578125,
+          "objective_abs_delta_vs_torch": 0.0,
+          "pass": true
+        },
+        "triton_stencil": {
+          "primal_scaled": 1.5706172007412533e-06,
+          "dual_scaled": 6.672926247119904e-07,
+          "objective": 165115.578125,
+          "objective_abs_delta_vs_torch": 0.0,
+          "pass": true
+        }
+      },
+      "backends": {
+        "torch": {
+          "first_observed_call_seconds": 0.013793469999654917,
+          "timing": {
+            "samples_seconds": [
+              0.0754381619999549,
+              0.07670367700029601,
+              0.08000168400030816,
+              0.07457106499987276,
+              0.07627352100007556,
+              0.07385446700027387,
+              0.07845119100011289,
+              0.09058059599965418,
+              0.07656598899984601
+            ],
+            "count": 9,
+            "median_seconds": 0.07656598899984601,
+            "mean_seconds": 0.07804892800004382,
+            "std_seconds": 0.0050582085014136665,
+            "mad_seconds": 0.0018852020002668723,
+            "p10_seconds": 0.07442774539995298,
+            "p25_seconds": 0.0754381619999549,
+            "p75_seconds": 0.07845119100011289,
+            "p90_seconds": 0.08211746640017736,
+            "median_us_per_iteration": 4785.374312490376,
+            "median_ns_per_pixel_iteration": 18.25475430484915
+          },
+          "memory": {
+            "baseline_allocated_bytes": 11534336,
+            "baseline_reserved_bytes": 27262976,
+            "peak_allocated_bytes": 56361984,
+            "peak_reserved_bytes": 69206016,
+            "incremental_peak_allocated_bytes": 44827648,
+            "incremental_peak_reserved_bytes": 41943040
+          }
+        },
+        "triton_elementwise": {
+          "first_observed_call_seconds": 0.23976865599979647,
+          "timing": {
+            "samples_seconds": [
+              0.019462050999663916,
+              0.017436268999972526,
+              0.023915292999845406,
+              0.01861480700017637,
+              0.017634801999975025,
+              0.018949798999983614,
+              0.01875257400024566,
+              0.017624393999994936,
+              0.0199920730001395
+            ],
+            "count": 9,
+            "median_seconds": 0.01875257400024566,
+            "mean_seconds": 0.019153562444444105,
+            "std_seconds": 0.0019861708737849027,
+            "mad_seconds": 0.0011177720002706337,
+            "p10_seconds": 0.017586768999990454,
+            "p25_seconds": 0.017634801999975025,
+            "p75_seconds": 0.019462050999663916,
+            "p90_seconds": 0.020776717000080682,
+            "median_us_per_iteration": 1172.0358750153537,
+            "median_ns_per_pixel_iteration": 4.470962047635474
+          },
+          "memory": {
+            "baseline_allocated_bytes": 11534336,
+            "baseline_reserved_bytes": 27262976,
+            "peak_allocated_bytes": 24117760,
+            "peak_reserved_bytes": 33554432,
+            "incremental_peak_allocated_bytes": 12583424,
+            "incremental_peak_reserved_bytes": 6291456
+          }
+        },
+        "triton_stencil": {
+          "first_observed_call_seconds": 0.3316247419998035,
+          "timing": {
+            "samples_seconds": [
+              0.012214081000365695,
+              0.010904071000368276,
+              0.01065241399965089,
+              0.01058065400002306,
+              0.010628437999912421,
+              0.010715447000166023,
+              0.010598852999919472,
+              0.01068809299977147,
+              0.010669973000403843
+            ],
+            "count": 9,
+            "median_seconds": 0.010669973000403843,
+            "mean_seconds": 0.010850224888953462,
+            "std_seconds": 0.0005201106049804264,
+            "mad_seconds": 4.547399976218003e-05,
+            "p10_seconds": 0.01059521319994019,
+            "p25_seconds": 0.010628437999912421,
+            "p75_seconds": 0.010715447000166023,
+            "p90_seconds": 0.01116607300036776,
+            "median_us_per_iteration": 666.8733125252402,
+            "median_ns_per_pixel_iteration": 2.54391980180832
+          },
+          "memory": {
+            "baseline_allocated_bytes": 11534336,
+            "baseline_reserved_bytes": 27262976,
+            "peak_allocated_bytes": 24117760,
+            "peak_reserved_bytes": 33554432,
+            "incremental_peak_allocated_bytes": 12583424,
+            "incremental_peak_reserved_bytes": 6291456
+          }
+        }
+      },
+      "routing_decision": {
+        "selected_backend": "triton_stencil",
+        "reason": "paired bootstrap lower 95% bound >= 1.10x",
+        "speedup_vs_torch": {
+          "paired_median_speedup": 7.1758371831820105,
+          "ci95_low": 6.892336549201315,
+          "ci95_high": 7.510192901151799
+        },
+        "median_seconds": 0.010669973000403843,
+        "torch_median_seconds": 0.07656598899984601
+      }
+    },
+    {
+      "kind": "kl",
+      "height": 512,
+      "width": 512,
+      "pixels": 262144,
+      "lam_tv": 0.03,
+      "iterations_per_sample": 21,
+      "correctness": {
+        "torch": {
+          "primal_scaled": 0.0,
+          "dual_scaled": 0.0,
+          "objective": 3774.240234375,
+          "objective_abs_delta_vs_torch": 0.0,
+          "pass": true
+        },
+        "triton_elementwise": {
+          "primal_scaled": 4.6547327769985714e-07,
+          "dual_scaled": 4.6566128730773926e-07,
+          "objective": 3774.240478515625,
+          "objective_abs_delta_vs_torch": 0.000244140625,
+          "pass": true
+        },
+        "triton_stencil": {
+          "primal_scaled": 4.6547327769985714e-07,
+          "dual_scaled": 4.6566128730773926e-07,
+          "objective": 3774.240478515625,
+          "objective_abs_delta_vs_torch": 0.000244140625,
+          "pass": true
+        }
+      },
+      "backends": {
+        "torch": {
+          "first_observed_call_seconds": 0.013947371000085695,
+          "timing": {
+            "samples_seconds": [
+              0.10474289499961742,
+              0.10014764200013815,
+              0.11134972899981221,
+              0.1029883390001487,
+              0.12063822300024185,
+              0.10498196199978338,
+              0.10433268900032999,
+              0.10046216999990065,
+              0.09918767799990746
+            ],
+            "count": 9,
+            "median_seconds": 0.10433268900032999,
+            "mean_seconds": 0.10542570299998665,
+            "std_seconds": 0.006761295624538542,
+            "mad_seconds": 0.00387051900042934,
+            "p10_seconds": 0.099955649200092,
+            "p25_seconds": 0.10046216999990065,
+            "p75_seconds": 0.10498196199978338,
+            "p90_seconds": 0.11320742779989815,
+            "median_us_per_iteration": 4968.22328573,
+            "median_ns_per_pixel_iteration": 18.952267783088683
+          },
+          "memory": {
+            "baseline_allocated_bytes": 11534336,
+            "baseline_reserved_bytes": 27262976,
+            "peak_allocated_bytes": 56624128,
+            "peak_reserved_bytes": 69206016,
+            "incremental_peak_allocated_bytes": 45089792,
+            "incremental_peak_reserved_bytes": 41943040
+          }
+        },
+        "triton_elementwise": {
+          "first_observed_call_seconds": 0.2479710019997583,
+          "timing": {
+            "samples_seconds": [
+              0.02314248700031385,
+              0.02341008699977465,
+              0.0228297910002766,
+              0.022322175999761384,
+              0.022452817999692343,
+              0.021994622999955027,
+              0.024674823000168544,
+              0.023175474000254326,
+              0.030572827000014513
+            ],
+            "count": 9,
+            "median_seconds": 0.02314248700031385,
+            "mean_seconds": 0.023841678444467915,
+            "std_seconds": 0.0026408997039143525,
+            "mad_seconds": 0.0006896690006215067,
+            "p10_seconds": 0.02225666539980011,
+            "p25_seconds": 0.022452817999692343,
+            "p75_seconds": 0.02341008699977465,
+            "p90_seconds": 0.02585442380013774,
+            "median_us_per_iteration": 1102.0231904911357,
+            "median_ns_per_pixel_iteration": 4.203884851421874
+          },
+          "memory": {
+            "baseline_allocated_bytes": 11534336,
+            "baseline_reserved_bytes": 27262976,
+            "peak_allocated_bytes": 24117760,
+            "peak_reserved_bytes": 33554432,
+            "incremental_peak_allocated_bytes": 12583424,
+            "incremental_peak_reserved_bytes": 6291456
+          }
+        },
+        "triton_stencil": {
+          "first_observed_call_seconds": 0.37348182299956534,
+          "timing": {
+            "samples_seconds": [
+              0.013217556000199693,
+              0.013415565000286733,
+              0.01313222599992514,
+              0.013639261999742303,
+              0.012687580000147136,
+              0.012722703000235924,
+              0.012294035999730113,
+              0.014483763999578514,
+              0.013163221000013436
+            ],
+            "count": 9,
+            "median_seconds": 0.013163221000013436,
+            "mean_seconds": 0.013195101444428778,
+            "std_seconds": 0.0006329163741015744,
+            "mad_seconds": 0.00044051799977751216,
+            "p10_seconds": 0.012608871200063732,
+            "p25_seconds": 0.012722703000235924,
+            "p75_seconds": 0.013415565000286733,
+            "p90_seconds": 0.013808162399709546,
+            "median_us_per_iteration": 626.8200476196874,
+            "median_ns_per_pixel_iteration": 2.3911287216937542
+          },
+          "memory": {
+            "baseline_allocated_bytes": 11534336,
+            "baseline_reserved_bytes": 27262976,
+            "peak_allocated_bytes": 24117760,
+            "peak_reserved_bytes": 33554432,
+            "incremental_peak_allocated_bytes": 12583424,
+            "incremental_peak_reserved_bytes": 6291456
+          }
+        }
+      },
+      "routing_decision": {
+        "selected_backend": "triton_stencil",
+        "reason": "paired bootstrap lower 95% bound >= 1.10x",
+        "speedup_vs_torch": {
+          "paired_median_speedup": 7.924528180401501,
+          "ci95_low": 7.465033488935999,
+          "ci95_high": 8.48644733126049
+        },
+        "median_seconds": 0.013163221000013436,
+        "torch_median_seconds": 0.10433268900032999
+      }
+    },
+    {
+      "kind": "xlogx",
+      "height": 512,
+      "width": 512,
+      "pixels": 262144,
+      "lam_tv": 0.01,
+      "iterations_per_sample": 22,
+      "correctness": {
+        "torch": {
+          "primal_scaled": 0.0,
+          "dual_scaled": 0.0,
+          "objective": -96436.984375,
+          "objective_abs_delta_vs_torch": 0.0,
+          "pass": true
+        },
+        "triton_elementwise": {
+          "primal_scaled": 1.4901161193847656e-07,
+          "dual_scaled": 1.1385418474674225e-07,
+          "objective": -96436.984375,
+          "objective_abs_delta_vs_torch": 0.0,
+          "pass": true
+        },
+        "triton_stencil": {
+          "primal_scaled": 8.940696716308594e-08,
+          "dual_scaled": 1.1455267667770386e-07,
+          "objective": -96436.984375,
+          "objective_abs_delta_vs_torch": 0.0,
+          "pass": true
+        }
+      },
+      "backends": {
+        "torch": {
+          "first_observed_call_seconds": 0.01425753800003804,
+          "timing": {
+            "samples_seconds": [
+              0.09804312200003551,
+              0.1160936500000389,
+              0.10454486400021779,
+              0.09916871200039168,
+              0.0989840299998832,
+              0.09980696000002354,
+              0.09902426899998318,
+              0.10064918699981718,
+              0.10490871399997559
+            ],
+            "count": 9,
+            "median_seconds": 0.09980696000002354,
+            "mean_seconds": 0.10235816755559629,
+            "std_seconds": 0.005708235385478961,
+            "mad_seconds": 0.0008422269997936382,
+            "p10_seconds": 0.09879584839991366,
+            "p25_seconds": 0.09902426899998318,
+            "p75_seconds": 0.10454486400021779,
+            "p90_seconds": 0.10714570119998826,
+            "median_us_per_iteration": 4536.68000000107,
+            "median_ns_per_pixel_iteration": 17.306060791019707
+          },
+          "memory": {
+            "baseline_allocated_bytes": 10485760,
+            "baseline_reserved_bytes": 27262976,
+            "peak_allocated_bytes": 55313408,
+            "peak_reserved_bytes": 67108864,
+            "incremental_peak_allocated_bytes": 44827648,
+            "incremental_peak_reserved_bytes": 39845888
+          }
+        },
+        "triton_elementwise": {
+          "first_observed_call_seconds": 0.22797948100014764,
+          "timing": {
+            "samples_seconds": [
+              0.022647130000223115,
+              0.023377703000278416,
+              0.022749249000298732,
+              0.02391490799982421,
+              0.030902966000212473,
+              0.022850439999729133,
+              0.02246593700010635,
+              0.02242953499990108,
+              0.03053032700017866
+            ],
+            "count": 9,
+            "median_seconds": 0.022850439999729133,
+            "mean_seconds": 0.02465202166675024,
+            "std_seconds": 0.00347131544494399,
+            "mad_seconds": 0.0004209049998280534,
+            "p10_seconds": 0.022458656600065297,
+            "p25_seconds": 0.022647130000223115,
+            "p75_seconds": 0.02391490799982421,
+            "p90_seconds": 0.030604854800185422,
+            "median_us_per_iteration": 1038.6563636240514,
+            "median_ns_per_pixel_iteration": 3.962159590240675
+          },
+          "memory": {
+            "baseline_allocated_bytes": 10485760,
+            "baseline_reserved_bytes": 27262976,
+            "peak_allocated_bytes": 23069184,
+            "peak_reserved_bytes": 33554432,
+            "incremental_peak_allocated_bytes": 12583424,
+            "incremental_peak_reserved_bytes": 6291456
+          }
+        },
+        "triton_stencil": {
+          "first_observed_call_seconds": 0.3161374490000526,
+          "timing": {
+            "samples_seconds": [
+              0.013418614999864076,
+              0.01965269799984526,
+              0.012914394000290486,
+              0.014525174000027619,
+              0.012903006999749778,
+              0.01388556600022639,
+              0.013037489999987883,
+              0.013285020000239456,
+              0.01589926899987404
+            ],
+            "count": 9,
+            "median_seconds": 0.013418614999864076,
+            "mean_seconds": 0.014391248111122776,
+            "std_seconds": 0.0021974135071032744,
+            "mad_seconds": 0.0005042209995735902,
+            "p10_seconds": 0.012912116600182344,
+            "p25_seconds": 0.013037489999987883,
+            "p75_seconds": 0.014525174000027619,
+            "p90_seconds": 0.016649954799868284,
+            "median_us_per_iteration": 609.937045448367,
+            "median_ns_per_pixel_iteration": 2.326725179475277
+          },
+          "memory": {
+            "baseline_allocated_bytes": 10485760,
+            "baseline_reserved_bytes": 27262976,
+            "peak_allocated_bytes": 23069184,
+            "peak_reserved_bytes": 33554432,
+            "incremental_peak_allocated_bytes": 12583424,
+            "incremental_peak_reserved_bytes": 6291456
+          }
+        }
+      },
+      "routing_decision": {
+        "selected_backend": "triton_stencil",
+        "reason": "paired bootstrap lower 95% bound >= 1.10x",
+        "speedup_vs_torch": {
+          "paired_median_speedup": 7.306500857281369,
+          "ci95_low": 6.598335684540385,
+          "ci95_high": 7.671392412776553
+        },
+        "median_seconds": 0.013418614999864076,
+        "torch_median_seconds": 0.09980696000002354
+      }
+    }
+  ]
+}

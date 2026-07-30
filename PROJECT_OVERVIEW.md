@@ -14,6 +14,8 @@ This repository documents a correctness-first implementation of Lambert-type pro
 
 ## Validated environment
 
+The performance routing evidence is device-local:
+
 - Tesla T4, compute capability 7.5
 - PyTorch 2.11.0+cu128
 - CUDA 12.8
@@ -22,7 +24,14 @@ This repository documents a correctness-first implementation of Lambert-type pro
 
 ## Non-claims
 
-This repository does not claim mathematical priority for Lambert-W proximal formulas, state-of-the-art performance, cross-GPU portability, validated AMP/half precision, Triton backward kernels, or a general-purpose imaging library.
+This repository does not claim:
+
+- mathematical priority for Lambert-W proximal formulas;
+- state-of-the-art performance;
+- cross-GPU performance portability;
+- validated FP16/BF16 or AMP execution;
+- Triton autograd or backward kernels;
+- a general-purpose imaging library.
 
 ## Methodological context
 

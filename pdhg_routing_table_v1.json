@@ -1,0 +1,321 @@
+{
+  "schema": "lambert-prox-pdhg-routing-table-v1",
+  "status": "PASS",
+  "policy": {
+    "fallback": "torch",
+    "minimum_robust_speedup": 1.1,
+    "interpolation": "nearest tested pixel count; fallback if area ratio > 4"
+  },
+  "devices": {
+    "Tesla T4|7.5|12.8|2.11.0+cu128": {
+      "environment": {
+        "python": "3.12.13",
+        "torch": "2.11.0+cu128",
+        "cuda_runtime": "12.8",
+        "device_name": "Tesla T4",
+        "compute_capability": "7.5",
+        "total_memory_bytes": 15637086208,
+        "multi_processor_count": 40,
+        "torch_tf32_matmul": false,
+        "cudnn_tf32": true,
+        "triton": "3.6.0",
+        "gpu_uuid": "GPU-b4bf2f37-da9d-c87e-4819-427ba692f1db",
+        "driver_version": "580.82.07",
+        "power_limit_w": 70.0,
+        "max_sm_clock_mhz": 1590.0,
+        "max_memory_clock_mhz": 5001.0
+      },
+      "provenance": {
+        "promotion_manifest_v1.json": "a463aa317d8364fea15be60a080746f1abeb01900ed6ad80f938115685dad90c",
+        "triton_validation_metrics_v2.json": "cb2a5a44aa05f7e923ea2b0525e88f42663bf149efabd4628268837b2092f582",
+        "lambert_prox_torch_v1.py": "7a262b35b66671c6e3e5602552e825213a50bb813d4855a8081047b454d9bfa5",
+        "triton_prox_canonical_v1.py": "12ab8ddb87619f91283c521ff12a4481514ee4f37077080cf5be3c768de4ae35",
+        "triton_stencil_canonical_v1.py": "cacb17459bdb25f01fa72ebf35a4939defa1a2d95058ad4a2e0a519623200c03",
+        "pdhg_promoted_v2.py": "b7dd61bffc13fe7db4144649aea4fcd7ad4d71d262f707d9814a4ffbebe4263b",
+        "benchmark_promoted_routing_v1.py": "90a416ca254a2d1852905ed84231f34e4dbea9232784d994747e321f4787f628"
+      },
+      "routes": {
+        "gaussian": [
+          {
+            "height": 128,
+            "width": 192,
+            "pixels": 24576,
+            "backend": "triton_stencil",
+            "decision": {
+              "selected_backend": "triton_stencil",
+              "reason": "paired bootstrap lower 95% bound >= 1.10x",
+              "speedup_vs_torch": {
+                "paired_median_speedup": 2.328514139849378,
+                "ci95_low": 2.27006595839987,
+                "ci95_high": 2.6425829746501592
+              },
+              "median_seconds": 0.054016425000099844,
+              "torch_median_seconds": 0.1268375869999545
+            },
+            "median_seconds": {
+              "torch": 0.1268375869999545,
+              "triton_elementwise": 0.09971185899985358,
+              "triton_stencil": 0.054016425000099844
+            },
+            "incremental_peak_allocated_bytes": {
+              "torch": 1180160,
+              "triton_elementwise": 1180160,
+              "triton_stencil": 1180160
+            }
+          },
+          {
+            "height": 512,
+            "width": 512,
+            "pixels": 262144,
+            "backend": "triton_stencil",
+            "decision": {
+              "selected_backend": "triton_stencil",
+              "reason": "paired bootstrap lower 95% bound >= 1.10x",
+              "speedup_vs_torch": {
+                "paired_median_speedup": 2.333553105855561,
+                "ci95_low": 2.2247322399886142,
+                "ci95_high": 2.3837224102822296
+              },
+              "median_seconds": 0.03947435400004906,
+              "torch_median_seconds": 0.09150225399980627
+            },
+            "median_seconds": {
+              "torch": 0.09150225399980627,
+              "triton_elementwise": 0.07475424500034933,
+              "triton_stencil": 0.03947435400004906
+            },
+            "incremental_peak_allocated_bytes": {
+              "torch": 12583424,
+              "triton_elementwise": 12583424,
+              "triton_stencil": 12583424
+            }
+          }
+        ],
+        "poisson_intensity": [
+          {
+            "height": 128,
+            "width": 192,
+            "pixels": 24576,
+            "backend": "triton_stencil",
+            "decision": {
+              "selected_backend": "triton_stencil",
+              "reason": "paired bootstrap lower 95% bound >= 1.10x",
+              "speedup_vs_torch": {
+                "paired_median_speedup": 2.852210889382897,
+                "ci95_low": 2.3291384761643092,
+                "ci95_high": 3.05479811344512
+              },
+              "median_seconds": 0.026581073999750515,
+              "torch_median_seconds": 0.08811439400005838
+            },
+            "median_seconds": {
+              "torch": 0.08811439400005838,
+              "triton_elementwise": 0.05766965499969956,
+              "triton_stencil": 0.026581073999750515
+            },
+            "incremental_peak_allocated_bytes": {
+              "torch": 1401344,
+              "triton_elementwise": 1180160,
+              "triton_stencil": 1180160
+            }
+          },
+          {
+            "height": 512,
+            "width": 512,
+            "pixels": 262144,
+            "backend": "triton_stencil",
+            "decision": {
+              "selected_backend": "triton_stencil",
+              "reason": "paired bootstrap lower 95% bound >= 1.10x",
+              "speedup_vs_torch": {
+                "paired_median_speedup": 2.683148538147605,
+                "ci95_low": 2.498911755499753,
+                "ci95_high": 2.781804772925464
+              },
+              "median_seconds": 0.03838715499978207,
+              "torch_median_seconds": 0.1055527980001898
+            },
+            "median_seconds": {
+              "torch": 0.1055527980001898,
+              "triton_elementwise": 0.06679565200010984,
+              "triton_stencil": 0.03838715499978207
+            },
+            "incremental_peak_allocated_bytes": {
+              "torch": 14942720,
+              "triton_elementwise": 12583424,
+              "triton_stencil": 12583424
+            }
+          }
+        ],
+        "poisson_log": [
+          {
+            "height": 128,
+            "width": 192,
+            "pixels": 24576,
+            "backend": "triton_stencil",
+            "decision": {
+              "selected_backend": "triton_stencil",
+              "reason": "paired bootstrap lower 95% bound >= 1.10x",
+              "speedup_vs_torch": {
+                "paired_median_speedup": 8.192586598554481,
+                "ci95_low": 7.558820014642172,
+                "ci95_high": 8.460718741961452
+              },
+              "median_seconds": 0.012162486999841349,
+              "torch_median_seconds": 0.09811495500025558
+            },
+            "median_seconds": {
+              "torch": 0.09811495500025558,
+              "triton_elementwise": 0.02204100400012976,
+              "triton_stencil": 0.012162486999841349
+            },
+            "incremental_peak_allocated_bytes": {
+              "torch": 4203520,
+              "triton_elementwise": 1180160,
+              "triton_stencil": 1180160
+            }
+          },
+          {
+            "height": 512,
+            "width": 512,
+            "pixels": 262144,
+            "backend": "triton_stencil",
+            "decision": {
+              "selected_backend": "triton_stencil",
+              "reason": "paired bootstrap lower 95% bound >= 1.10x",
+              "speedup_vs_torch": {
+                "paired_median_speedup": 7.1758371831820105,
+                "ci95_low": 6.892336549201315,
+                "ci95_high": 7.510192901151799
+              },
+              "median_seconds": 0.010669973000403843,
+              "torch_median_seconds": 0.07656598899984601
+            },
+            "median_seconds": {
+              "torch": 0.07656598899984601,
+              "triton_elementwise": 0.01875257400024566,
+              "triton_stencil": 0.010669973000403843
+            },
+            "incremental_peak_allocated_bytes": {
+              "torch": 44827648,
+              "triton_elementwise": 12583424,
+              "triton_stencil": 12583424
+            }
+          }
+        ],
+        "kl": [
+          {
+            "height": 128,
+            "width": 192,
+            "pixels": 24576,
+            "backend": "triton_stencil",
+            "decision": {
+              "selected_backend": "triton_stencil",
+              "reason": "paired bootstrap lower 95% bound >= 1.10x",
+              "speedup_vs_torch": {
+                "paired_median_speedup": 7.967886386566432,
+                "ci95_low": 6.795379364395213,
+                "ci95_high": 8.390177735600567
+              },
+              "median_seconds": 0.012050061000081769,
+              "torch_median_seconds": 0.09619589100020676
+            },
+            "median_seconds": {
+              "torch": 0.09619589100020676,
+              "triton_elementwise": 0.021431506000226364,
+              "triton_stencil": 0.012050061000081769
+            },
+            "incremental_peak_allocated_bytes": {
+              "torch": 4228096,
+              "triton_elementwise": 1180160,
+              "triton_stencil": 1180160
+            }
+          },
+          {
+            "height": 512,
+            "width": 512,
+            "pixels": 262144,
+            "backend": "triton_stencil",
+            "decision": {
+              "selected_backend": "triton_stencil",
+              "reason": "paired bootstrap lower 95% bound >= 1.10x",
+              "speedup_vs_torch": {
+                "paired_median_speedup": 7.924528180401501,
+                "ci95_low": 7.465033488935999,
+                "ci95_high": 8.48644733126049
+              },
+              "median_seconds": 0.013163221000013436,
+              "torch_median_seconds": 0.10433268900032999
+            },
+            "median_seconds": {
+              "torch": 0.10433268900032999,
+              "triton_elementwise": 0.02314248700031385,
+              "triton_stencil": 0.013163221000013436
+            },
+            "incremental_peak_allocated_bytes": {
+              "torch": 45089792,
+              "triton_elementwise": 12583424,
+              "triton_stencil": 12583424
+            }
+          }
+        ],
+        "xlogx": [
+          {
+            "height": 128,
+            "width": 192,
+            "pixels": 24576,
+            "backend": "triton_stencil",
+            "decision": {
+              "selected_backend": "triton_stencil",
+              "reason": "paired bootstrap lower 95% bound >= 1.10x",
+              "speedup_vs_torch": {
+                "paired_median_speedup": 8.145321025723128,
+                "ci95_low": 7.720617541326458,
+                "ci95_high": 8.38016159988951
+              },
+              "median_seconds": 0.012646314999983588,
+              "torch_median_seconds": 0.10103345900006389
+            },
+            "median_seconds": {
+              "torch": 0.10103345900006389,
+              "triton_elementwise": 0.022810379000020475,
+              "triton_stencil": 0.012646314999983588
+            },
+            "incremental_peak_allocated_bytes": {
+              "torch": 4203520,
+              "triton_elementwise": 1180160,
+              "triton_stencil": 1180160
+            }
+          },
+          {
+            "height": 512,
+            "width": 512,
+            "pixels": 262144,
+            "backend": "triton_stencil",
+            "decision": {
+              "selected_backend": "triton_stencil",
+              "reason": "paired bootstrap lower 95% bound >= 1.10x",
+              "speedup_vs_torch": {
+                "paired_median_speedup": 7.306500857281369,
+                "ci95_low": 6.598335684540385,
+                "ci95_high": 7.671392412776553
+              },
+              "median_seconds": 0.013418614999864076,
+              "torch_median_seconds": 0.09980696000002354
+            },
+            "median_seconds": {
+              "torch": 0.09980696000002354,
+              "triton_elementwise": 0.022850439999729133,
+              "triton_stencil": 0.013418614999864076
+            },
+            "incremental_peak_allocated_bytes": {
+              "torch": 44827648,
+              "triton_elementwise": 12583424,
+              "triton_stencil": 12583424
+            }
+          }
+        ]
+      }
+    }
+  }
+}
