@@ -3,11 +3,10 @@ __pycache__/
 .ipynb_checkpoints/
 .pytest_cache/
 .mypy_cache/
-.venv/
-venv/
-.env
+.ruff_cache/
 *.egg-info/
 build/
 dist/
 .triton/
-*.log
+*.so
+*.json.tmp

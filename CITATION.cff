@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software or its validation framework, please cite it as below."
+title: "Lambert-Prox PDHG Triton"
+type: software
+authors:
+  - family-names: "Hamza"
+    given-names: "Laurent Alexandre"
+version: "1.0.0"
+date-released: "2026-07-30"
+repository-code: "https://github.com/bobrun043/lambert-prox-pdhg-triton"
+license: "Apache-2.0"
+abstract: >-
+  Correctness-first Lambert-type proximal operators, canonical PyTorch PDHG,
+  fused Triton kernels, and conservative evidence-backed routing validated on
+  a Tesla T4 environment.
+keywords:
+  - proximal operators
+  - Lambert W
+  - PDHG
+  - Triton
+  - PyTorch
+  - total variation
+  - reproducible research software
