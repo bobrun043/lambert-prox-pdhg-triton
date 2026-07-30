@@ -1,0 +1,36 @@
+name: CPU validation
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install CPU dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+      - name: Compile sources
+        run: |
+          python -m compileall -q .
+      - name: Run canonical CPU tests
+        env:
+          PYTHONPATH: .
+        run: |
+          python tests/test_pdhg_promoted_v2_cpu.py
+          python tests/test_pdhg_auto_routed_v3_cpu.py
+          python tests/test_routing_policy_v2.py
