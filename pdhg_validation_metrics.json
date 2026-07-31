@@ -1,0 +1,108 @@
+{
+  "schema": "lambert-prox-pdhg-validation-v1",
+  "environment": {
+    "python": "3.12.13",
+    "torch": "2.13.0+cpu",
+    "cuda_available": false,
+    "cuda_version": null,
+    "device": "cpu",
+    "triton_importable": false
+  },
+  "adjoint_relative_gap_fp64": 2.4023500583132644e-15,
+  "pytest": {
+    "returncode": 0,
+    "stdout": "..........................................................               [100%]\n58 passed in 6.46s\n",
+    "stderr": "",
+    "elapsed_seconds": 7.193268562999947
+  },
+  "torch_pdhg": [
+    {
+      "kind": "gaussian",
+      "objective_initial": 230.192390824709,
+      "objective_final": 51.09788215436539,
+      "objective_drop": 179.09450867034363,
+      "iterations": 151,
+      "converged": true,
+      "primal_rel_change": 1.7726710696206023e-08,
+      "dual_rel_change": 1.953492673084863e-06,
+      "elapsed_seconds": 0.03144515600001796,
+      "backend_requested": "torch",
+      "backend_executed": "torch",
+      "finite_primal": true,
+      "finite_dual": true
+    },
+    {
+      "kind": "poisson_intensity",
+      "objective_initial": 2073.5594021345214,
+      "objective_final": 2059.9574526549773,
+      "objective_drop": 13.601949479544146,
+      "iterations": 555,
+      "converged": true,
+      "primal_rel_change": 1.9141535648737724e-09,
+      "dual_rel_change": 1.99731773874515e-06,
+      "elapsed_seconds": 0.1834742119999646,
+      "backend_requested": "torch",
+      "backend_executed": "torch",
+      "finite_primal": true,
+      "finite_dual": true
+    },
+    {
+      "kind": "poisson_log",
+      "objective_initial": 2086.5011279248906,
+      "objective_final": 2066.6503187061726,
+      "objective_drop": 19.85080921871804,
+      "iterations": 149,
+      "converged": true,
+      "primal_rel_change": 6.221885572477085e-08,
+      "dual_rel_change": 1.9962956564054228e-06,
+      "elapsed_seconds": 0.22905048899997382,
+      "backend_requested": "torch",
+      "backend_executed": "torch",
+      "finite_primal": true,
+      "finite_dual": true
+    },
+    {
+      "kind": "kl",
+      "objective_initial": 133.28443274128904,
+      "objective_final": 52.91143496168958,
+      "objective_drop": 80.37299777959946,
+      "iterations": 361,
+      "converged": true,
+      "primal_rel_change": 6.387017673453641e-09,
+      "dual_rel_change": 1.9972181063484977e-06,
+      "elapsed_seconds": 0.6559018269999797,
+      "backend_requested": "torch",
+      "backend_executed": "torch",
+      "finite_primal": true,
+      "finite_dual": true
+    },
+    {
+      "kind": "xlogx",
+      "objective_initial": 0.0,
+      "objective_final": -779.9044152834579,
+      "objective_drop": 779.9044152834579,
+      "iterations": 40,
+      "converged": true,
+      "primal_rel_change": 6.100230291891077e-12,
+      "dual_rel_change": 0.0,
+      "elapsed_seconds": 0.06036958999993658,
+      "backend_requested": "torch",
+      "backend_executed": "torch",
+      "finite_primal": true,
+      "finite_dual": true
+    }
+  ],
+  "triton": {
+    "environment": {
+      "python": "3.12.13",
+      "torch": "2.13.0+cpu",
+      "cuda_available": false,
+      "cuda_version": null,
+      "device": "cpu",
+      "triton_importable": false
+    },
+    "status": "NOT_RUN",
+    "tests": [],
+    "reason": "CUDA and Triton are both required"
+  }
+}

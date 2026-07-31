@@ -1,75 +1,56 @@
-# Lambert-Prox PDHG Triton
+# Lambert-Prox PDHG Triton — CLOSE1
 
-Correctness-first proximal operators of Lambert/entropy type, a canonical PyTorch PDHG solver, fused Triton kernels, and evidence-backed runtime routing for a validated Tesla T4 environment.
+[![CPU validation](https://github.com/bobrun043/lambert-prox-pdhg-triton/actions/workflows/cpu-tests.yml/badge.svg)](https://github.com/bobrun043/lambert-prox-pdhg-triton/actions/workflows/cpu-tests.yml)
 
-This repository is a research-software case study built by an independent autodidact with extensive AI assistance. The code and claims were progressively narrowed through independent references, KKT checks, adjoint tests, CUDA oracle comparisons, multi-iteration regression, statistical benchmarking, and SHA-256 evidence manifests.
+Correctness-first Lambert/Wright-\(\Omega\) proximal operators, a periodic 2-D TV-PDHG solver, fused Triton kernels, and conservative evidence-backed routing. `CLOSE1` is the source-bound release closed on 31 July 2026.
 
-## What is included
+This is independent research software developed by Laurent Alexandre Hamza, an autodidact, with extensive AI assistance. Its status rests on exposed formulas, tests, raw metrics, source hashes, and explicit claim boundaries.
 
-- stable solution of `u + log(u) = R` without forming `exp(R)`;
-- canonical prox operators for Gaussian, exponential, `x log x`, KL, Poisson log-intensity, Poisson intensity, and `-log` models;
-- NumPy FP64 reference implementation;
-- PyTorch implementation with first- and second-order autograd validation;
-- periodic 2D TV-PDHG reference solver;
-- elementwise and fused stencil Triton forward kernels;
-- conservative automatic routing with explicit Torch fallback;
-- CUDA correctness reports, T4 benchmark evidence, source hashes, and the evidence used by a separately distributed consolidated technical document.
+## What is established
 
-## Validated scope
+| Layer | Recorded result |
+|---|---|
+| Scalar primitive | Stable bi-coordinate evaluation of `u + log(u) = R`, i.e. Wright \(\Omega(R)=W_0(e^R)\) |
+| Prox catalogue | Gaussian, exponential, `x log x`, KL, Poisson log-intensity, Poisson intensity, and `-log` |
+| CPU CLOSE1 | 58 tests passed; 5/5 controlled models stabilized and met numerical gap/KKT thresholds |
+| Periodic gradient | Exact finite-grid norm; `sqrt(8)` retained only as a uniform upper bound |
+| Tesla T4 | 47/47 Torch–Triton comparisons passed; worst scaled discrepancy `4.76837158203125e-07` |
+| Provenance | Eight CUDA validation sources matched before and after the run |
+| T4 routing study | 10/10 tested model-size pairs selected the fused stencil; minimum bootstrap CI lower bound `2.2247x` |
 
-The accelerated route is validated for:
+The CUDA attestation is limited to Tesla T4, compute capability 7.5, PyTorch `2.11.0+cu128`, CUDA `12.8`, Triton `3.6.0`, FP32 forward execution, and the recorded geometries and models. Torch is the normative fallback outside that contract.
 
-- GPU: Tesla T4, compute capability 7.5;
-- PyTorch: 2.11.0+cu128;
-- CUDA runtime: 12.8;
-- Triton: 3.6.0;
-- dtype: FP32;
-- direction: forward only;
-- models: Gaussian, Poisson intensity, Poisson log-intensity, KL, and `x log x`;
-- tested sizes: `128x192` and `512x512`.
+## CLOSE1 corrections
 
-On that exact environment, 47/47 Torch–Triton oracle comparisons passed. Five multi-iteration PDHG trajectories passed. The paired bootstrap routing benchmark selected the fused stencil backend for all ten tested model-size pairs.
+The previous repository state exposed Auto-Routed V3. CLOSE1 keeps those historical artifacts byte-stable and adds:
 
-## Claims boundary
+- the exact periodic finite-grid norm;
+- primal and dual objectives, Fenchel gap, dual feasibility, and normalized fixed-point KKT residuals;
+- separate `stabilized` and `certified` flags;
+- the closed domain `x >= 0` with `0 log 0 = 0` for `x log x`;
+- a complete autonomous manifest;
+- a Tesla T4 rerun with SHA-256 maps captured before import and checked again after execution.
 
-This repository does **not** claim:
-
-- a new Lambert W function or a new proximal operator formula;
-- mathematical priority for PDHG, TV regularization, or GPU fusion;
-- state-of-the-art performance;
-- cross-GPU performance portability;
-- Triton autograd, AMP, FP16, BF16, or FP64 support;
-- production readiness outside the validated scope.
-
-The potentially original part is the bounded engineering architecture: a bi-coordinate log-domain primitive, a single canonical prox table, independent references, promoted Triton kernels, cryptographically bound evidence, and conservative device-local routing.
+`certified` is a numerical acceptance flag for the supplied tolerances. It is not a proof of convergence in floating-point arithmetic.
 
 ## Quick start
 
-Requirements:
-
 ```bash
-python -m pip install numpy torch
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+
+python verify_close1_package.py
+python -m pytest -q
+python run_close1_validation.py
 ```
 
-CPU validation:
-
-```bash
-PYTHONPATH=. python tests/test_pdhg_promoted_v2_cpu.py
-PYTHONPATH=. python tests/test_pdhg_auto_routed_v3_cpu.py
-PYTHONPATH=. python tests/test_routing_policy_v2.py
-```
-
-T4 smoke test from the repository root:
-
-```bash
-python run_auto_routing_smoke_colab.py
-```
-
-Minimal usage:
+Minimal use:
 
 ```python
 import torch
-from pdhg_auto_routed_v3 import pdhg_auto
+from pdhg_auto_routed_close1 import pdhg_auto
 
 y = torch.rand((1, 1, 128, 192), device="cuda", dtype=torch.float32) + 0.1
 x0 = y.clone()
@@ -79,42 +60,59 @@ x, dual, info, route = pdhg_auto(
     x0,
     y,
     lam_tv=0.08,
-    max_iter=100,
-    min_iter=100,
-    tol=0.0,
+    backend="auto",
+    max_iter=200,
 )
 
-print(route.executed_backend)
+print(route.to_dict())
+print(info.diagnostics.to_dict())
 ```
 
-Explicit Triton requests never silently fall back. In `auto` mode, any mismatch in GPU, software versions, dtype, geometry, or evidence hashes returns to Torch and records the reason.
+An explicit Triton request never silently falls back. In `auto` mode, an environment, evidence, model, dtype, or geometry mismatch selects Torch and records the reason.
 
 ## Repository map
 
-- `lambert_prox_reference_v1.py` — independent NumPy FP64 reference;
-- `lambert_prox_torch_v1.py` — canonical Torch prox backend;
-- `triton_prox_canonical_v1.py` — elementwise Triton kernels;
-- `triton_stencil_canonical_v1.py` — fused periodic TV stencil kernels;
-- `pdhg_promoted_v2.py` — explicit backend PDHG;
-- `pdhg_auto_routed_v3.py` — conservative automatic router;
-- `routing_policy_v2.py` — environment and evidence checks;
-- `benchmark_promoted_routing_v1.py` — paired statistical benchmark;
-- `tests/` — CPU policy and integration tests;
-- `docs/` — closure reports and consolidated formalization;
-- JSON/Markdown files at repository root — evidence required by the runtime manifests.
+- `lambert_prox_reference_v1.py` — independent NumPy/FP64 reference;
+- `lambert_prox_torch_v1.py` — canonical Torch proximal backend;
+- `pdhg_close1.py` — exact grid norm and CLOSE1 gap/KKT diagnostics;
+- `pdhg_auto_routed_close1.py` — public evidence-backed API;
+- `triton_prox_canonical_v1.py` and `triton_stencil_canonical_v1.py` — promoted Triton kernels;
+- `triton_validation_metrics_close1.json` — cleaned T4 attestation;
+- `t4_close1_colab_stdout_2026-07-31.txt` — raw Colab output;
+- `close1_package_manifest.json` and `SHA256SUMS.txt` — repository integrity map;
+- `historical_reports/` — earlier reports, explicitly separated from CLOSE1;
+- `docs/` — the consolidated 18-page formalisation.
 
-## Reproducibility and provenance
+## Reproducibility
 
-`promotion_manifest_v1.json` binds the promoted correctness package. `routing_evidence_manifest_v1.json` binds the T4 routing table, raw benchmark, summary, and relevant sources. The original CUDA correctness report did not embed source hashes during execution; this limitation is stated in the promotion manifest rather than hidden.
+The normative local commands are:
 
-## AI assistance
+```bash
+python verify_close1_package.py
+python -m pytest -q
+python run_close1_validation.py
+```
 
-AI systems were used for mathematical reformulation, code generation, debugging, adversarial review, test design, documentation, and consolidation. Numerical results were produced by the scripts and environments recorded in the evidence files. AI assistance is part of the development method, not evidence that every intermediate proposal was correct.
+The source-bound T4 rerun is:
 
-## Citation
+```python
+%run run_cuda_validation_close1_colab.py
+```
 
-See `CITATION.cff`. See `docs/FORMALISATION.md` for the canonical PDF filename and checksum.
+Its release digest is:
 
-## License
+```text
+7e0757258621520664c48653650efdf5e13b6ed95773537dce40133172d2417f
+```
 
-Apache License 2.0. See `LICENSE`.
+## Claims boundary
+
+This repository does **not** claim a new special function, new proximal formulas, mathematical priority for PDHG or TV regularization, state-of-the-art speed, inter-GPU portability, backward Triton kernels, AMP/FP16/BF16/FP64 validation, or a general proof for inexact finite-precision PDHG.
+
+The contribution is the bounded integration: one bi-coordinate primitive, one canonical prox contract, independent references, exact finite-grid diagnostics, promoted GPU kernels, source-bound evidence, and conservative device-local routing.
+
+See [`PROJECT_OVERVIEW.md`](PROJECT_OVERVIEW.md), [`CLOSE1_CLOSURE_REPORT.md`](CLOSE1_CLOSURE_REPORT.md), and the [consolidated formalisation](docs/LAMBERT_PROX_CLOSE1_FORMALISATION_CONSOLIDEE_2026-07-31.pdf).
+
+## License and citation
+
+Apache License 2.0. See `LICENSE`, `NOTICE.md`, and `CITATION.cff`.

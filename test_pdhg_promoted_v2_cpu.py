@@ -11,7 +11,7 @@ from pathlib import Path
 
 import torch
 
-HERE = Path(__file__).resolve().parent.parent
+HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
 from pdhg_promoted_v2 import (

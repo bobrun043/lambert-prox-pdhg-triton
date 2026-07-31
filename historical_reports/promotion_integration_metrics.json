@@ -1,0 +1,55 @@
+{
+  "schema": "lambert-prox-pdhg-promoted-v2-closure",
+  "status": "PROMOTED_CORRECTNESS_ONLY",
+  "cuda_validation": {
+    "environment": {
+      "torch": "2.11.0+cu128",
+      "cuda_available": true,
+      "cuda_version": "12.8",
+      "device": "Tesla T4",
+      "triton_importable": true
+    },
+    "count": 47,
+    "passed": 47,
+    "worst_scaled": 4.76837158203125e-07,
+    "worst_case": {
+      "family": "elementwise_wide",
+      "kind": "poisson_log",
+      "max_abs": 7.62939453125e-06,
+      "max_scaled": 4.76837158203125e-07,
+      "mean_abs": 8.079571500729799e-08,
+      "pass": true
+    },
+    "families": {
+      "elementwise_standard": 7,
+      "elementwise_boundary": 1,
+      "elementwise_wide": 2,
+      "elementwise_noncontiguous": 7,
+      "stencil_dual": 1,
+      "stencil_primal": 7,
+      "stencil_dual_noncontiguous": 1,
+      "stencil_primal_noncontiguous": 7,
+      "pdhg_complete_step_dual": 7,
+      "pdhg_complete_step_primal": 7
+    }
+  },
+  "local_cpu_regression": {
+    "status": "PASS",
+    "assertion_groups": 20,
+    "adjoint_gap": 2.4023500583132644e-15
+  },
+  "promotion": {
+    "runtime_hash_gate": true,
+    "silent_fallback": false,
+    "triton_dtype": "float32",
+    "triton_direction": "forward_only"
+  },
+  "non_claims": [
+    "speedup",
+    "SOTA",
+    "production readiness",
+    "autograd",
+    "AMP",
+    "cross-GPU equivalence"
+  ]
+}
