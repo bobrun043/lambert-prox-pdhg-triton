@@ -1,0 +1,64 @@
+{
+  "schema": "lambert-prox-reference-metrics-v1",
+  "timestamp_utc": "2026-07-30T13:30:37.578437+00:00",
+  "environment": {
+    "python": "3.13.5",
+    "numpy": "2.3.5",
+    "mpmath": "1.3.0"
+  },
+  "normative_spec": {
+    "path": "/mnt/data/LAMBERT_PROX_SPEC_CANONIQUE_V1_2026-07-21.pdf",
+    "sha256": "88da7af01c1449c0287376280b662ddf89861326b390ce79f61ad7f44e471b48"
+  },
+  "reference_module_sha256": "67fc3df37972d4c152d1a293ac110e641d52ee1764d8bd3568a59fd517d186b9",
+  "inverse_contract": {
+    "samples": 30004,
+    "all_converged": true,
+    "max_coordinate_residual": 1.1368683772161603e-13,
+    "p99_coordinate_residual": 1.7763568394002505e-15,
+    "max_iterations": 4,
+    "mean_iterations": 2.7381015864551395,
+    "log_only_count": 1285,
+    "R_minus_1000_status": "OK_LOG_ONLY"
+  },
+  "mpmath_oracle": {
+    "points": [
+      -1000.0,
+      -800.0,
+      -100.0,
+      -20.0,
+      -8.1,
+      -8.0,
+      -1.0,
+      0.0,
+      8.0,
+      100.0,
+      1000000.0
+    ],
+    "max_abs_q_error": 2.220446049250313e-16,
+    "max_relative_u_error_when_representable": 5.421010862427522e-20
+  },
+  "prox_kkt_normalized_max": {
+    "exp": 1.717376241217039e-15,
+    "xlogx": 6.267208974009009e-14,
+    "kl": 9.577061366172757e-14,
+    "poisson_log": 1.0352670651962204e-15,
+    "poisson_intensity": 3.132379079105588e-16,
+    "neglog": 2.9474868424667806e-16,
+    "gaussian": 5.93046932415368e-15
+  },
+  "claims": {
+    "permitted": [
+      "independent NumPy FP64 reference implemented",
+      "bi-coordinate underflow status implemented",
+      "canonical proximal formulas verified on the stated deterministic test domain"
+    ],
+    "not_established": [
+      "Torch equivalence",
+      "Triton equivalence",
+      "GPU performance",
+      "novelty or priority",
+      "SOTA"
+    ]
+  }
+}

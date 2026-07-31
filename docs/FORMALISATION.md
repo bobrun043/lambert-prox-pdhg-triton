@@ -1,13 +1,15 @@
 # Consolidated formalisation
 
-The consolidated 68-page technical PDF is distributed separately from the source repository.
+The canonical CLOSE1 technical document is committed next to this file:
 
-Canonical filename:
+[`LAMBERT_PROX_CLOSE1_FORMALISATION_CONSOLIDEE_2026-07-31.pdf`](LAMBERT_PROX_CLOSE1_FORMALISATION_CONSOLIDEE_2026-07-31.pdf)
 
-`LAMBERT_PROX_PDHG_TRITON_FORMALISATION_CONSOLIDEE_FINALE_T4_2026-07-30.pdf`
+- pages: 18
+- status: `CLOSED_T4_ATTESTED`
+- SHA-256: `2819992eed3d6b57fec6e101e47c46c784793c2223e3317d2fb5e2e1d18b7174`
 
-SHA-256:
+The PDF embeds the autonomous CLOSE1 source archive used for closure. The repository exposes the same normative sources, tests, manifests, raw T4 output, and attestation in browseable form.
 
-`9330d7d9b3cc2aeee7c8096a3a761460267dd33c932823900d83cdcbe2324d18`
+The source-bound T4 digest inside the attestation is:
 
-The repository contains the executable sources, tests, reports and evidence files embedded in that document. A future GitHub release or Zenodo record may attach the PDF without changing the software claims.
+`7e0757258621520664c48653650efdf5e13b6ed95773537dce40133172d2417f`

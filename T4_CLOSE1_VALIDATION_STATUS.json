@@ -1,0 +1,30 @@
+{
+  "schema": "lambert-prox-close1-t4-status-v2",
+  "status": "PASS",
+  "date": "2026-07-31",
+  "started_at_utc": "2026-07-31T13:36:36.681723+00:00",
+  "finished_at_utc": "2026-07-31T13:36:54.812126+00:00",
+  "environment": {
+    "torch": "2.11.0+cu128",
+    "cuda_available": true,
+    "cuda_version": "12.8",
+    "device": "Tesla T4",
+    "triton_importable": true
+  },
+  "validation": {
+    "passed": 47,
+    "count": 47,
+    "worst_scaled": 4.76837158203125e-07
+  },
+  "provenance": {
+    "level": "pre_run_and_post_run_source_binding",
+    "release_sha256": "7e0757258621520664c48653650efdf5e13b6ed95773537dce40133172d2417f",
+    "source_maps_equal": true,
+    "local_source_map_match": true,
+    "sources_unchanged_during_run": true
+  },
+  "raw_console_sha256": "839f0fa042dbd6175e882ecbb6f90df00596d3ddd024f5be9a44d2e9eac3ec85",
+  "clean_report_sha256": "76b4aec4c5aa89079ce2d5cbe074960c8855eb24f73269f6d9bc2745d0fa2330",
+  "console_trailer": "An exception has occurred, use %tb to see the full traceback.\n\nSystemExit: 0\n/usr/local/lib/python3.12/dist-packages/IPython/core/interactiveshell.py:3561: UserWarning: To exit: use 'exit', 'quit', or Ctrl-D.\n  warn(\"To exit: use 'exit', 'quit', or Ctrl-D.\", stacklevel=1)",
+  "interpretation": "CLOSE1 correction kernels are attested on the recorded Tesla T4 environment. This does not establish an inter-GPU or SOTA claim."
+}

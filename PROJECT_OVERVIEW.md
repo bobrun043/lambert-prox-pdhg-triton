@@ -1,42 +1,42 @@
 # Project overview
 
-This repository documents a correctness-first implementation of Lambert-type proximal operators and a periodic 2D PDHG solver with PyTorch and Triton backends.
+This repository contains the `CLOSED_T4_ATTESTED` state of a correctness-first implementation of Wright-Omega/Lambert-type proximal operators and a periodic two-dimensional TV-PDHG solver with Torch and Triton backends.
 
-## What is established
+## Established scope
 
-- A canonical scalar primitive for solving `u + log(u) = R` with value and log coordinates.
-- Canonical proximal operators for exponential, entropy, KL, negative-log and Poisson models.
-- A PyTorch reference backend with native first- and second-order autograd on the tested scope.
-- Forward FP32 Triton kernels validated against the canonical Torch backend.
+- Stable value/log evaluation of the scalar equation `u + log(u) = R`.
+- Seven canonical proximal models with explicit closed domains.
+- Independent NumPy FP64 and Torch implementations.
+- Exact finite-grid norm for the periodic forward gradient.
+- End-of-run primal/dual objectives, Fenchel gap, dual feasibility, and fixed-point KKT residuals.
+- Forward FP32 Triton kernels checked against Torch.
 - Fused periodic-TV stencil kernels for complete PDHG updates.
-- A Tesla T4 routing table selected by paired bootstrap timing tests.
-- Explicit fallback to Torch outside the tested device, dtype, model and image-size domain.
+- Conservative runtime routing with explicit Torch fallback.
+- A source-bound Tesla T4 validation attestation and raw benchmark evidence.
 
-## Validated environment
+## Status separation
 
-The performance routing evidence is device-local:
+- `stabilized`: the relative iterate-change stopping condition was met.
+- `certified`: numerical gap/KKT/feasibility thresholds were met.
+- mathematical convergence: a theorem-level statement for exact PDHG under its hypotheses; it is not inferred automatically from a finite-precision run with approximate prox evaluation.
+
+## Validated accelerated environment
 
 - Tesla T4, compute capability 7.5
-- PyTorch 2.11.0+cu128
-- CUDA 12.8
-- Triton 3.6.0
+- PyTorch `2.11.0+cu128`
+- CUDA runtime `12.8`
+- Triton `3.6.0`
 - FP32 forward execution
+- recorded models and geometries only
 
 ## Non-claims
 
-This repository does not claim:
-
-- mathematical priority for Lambert-W proximal formulas;
-- state-of-the-art performance;
-- cross-GPU performance portability;
-- validated FP16/BF16 or AMP execution;
-- Triton autograd or backward kernels;
-- a general-purpose imaging library.
+The repository does not claim new proximal formulas, priority for Wright Omega/Lambert W, state-of-the-art speed, cross-GPU portability, Triton autograd, mixed-precision support, or a general finite-precision convergence theorem.
 
 ## Methodological context
 
-The project was developed by an independent autodidact using AI systems as tools for derivation, criticism, implementation, testing and repeated contradiction. The scientific status rests on the exposed formulas, tests, reports and reproducible artifacts—not on the origin of the author or on AI-generated authority.
+The project was developed by an independent autodidact using AI systems for derivation, implementation, debugging, adversarial review, test design, and documentation. The scientific status rests on the exposed formulas and reproducible evidence, including failures and limits—not on AI authority.
 
-## Current status
+## Current production profile
 
-The current production profile is the auto-routed V3 package. Torch remains the normative fallback. Triton is selected only when the recorded routing contract is satisfied.
+The public API is `pdhg_auto_routed_close1.pdhg_auto`. Torch remains normative outside the exact accelerated routing contract. Auto-Routed V3 is retained as a historical, hash-bound layer beneath CLOSE1.

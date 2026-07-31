@@ -1,5 +1,6 @@
 __pycache__/
 *.py[cod]
+.venv/
 .ipynb_checkpoints/
 .pytest_cache/
 .mypy_cache/

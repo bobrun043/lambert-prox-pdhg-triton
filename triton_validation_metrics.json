@@ -1,0 +1,13 @@
+{
+  "environment": {
+    "python": "3.12.13",
+    "torch": "2.13.0+cpu",
+    "cuda_available": false,
+    "cuda_version": null,
+    "device": "cpu",
+    "triton_importable": false
+  },
+  "status": "NOT_RUN",
+  "tests": [],
+  "reason": "CUDA and Triton are both required"
+}

@@ -1,0 +1,89 @@
+{
+  "schema": "lambert-prox-close1-cpu-validation-v1",
+  "status": "PASS",
+  "environment": {
+    "python": "3.12.13",
+    "torch": "2.13.0+cpu",
+    "device": "cpu"
+  },
+  "finite_grid_norm_31x47": 2.8258224296707137,
+  "pytest": {
+    "returncode": 0,
+    "stdout": "..........................................................               [100%]\n58 passed in 2.62s\n",
+    "stderr": ""
+  },
+  "models": [
+    {
+      "kind": "gaussian",
+      "initial_objective": 80.3966538536621,
+      "final_objective": 34.15380597234622,
+      "objective_drop": 46.24284788131588,
+      "iterations": 112,
+      "stabilized": true,
+      "certified": true,
+      "relative_gap": 6.086561044272324e-11,
+      "kkt_max_residual": 4.267060745306896e-09,
+      "dual_feasibility_violation": 2.0816681711721685e-17,
+      "finite_primal": true,
+      "finite_dual": true
+    },
+    {
+      "kind": "poisson_intensity",
+      "initial_objective": 1425.692237026753,
+      "final_objective": 1416.4165799289513,
+      "objective_drop": 9.27565709780174,
+      "iterations": 109,
+      "stabilized": true,
+      "certified": true,
+      "relative_gap": 3.639477285635514e-12,
+      "kkt_max_residual": 4.648098325099898e-09,
+      "dual_feasibility_violation": 1.3877787807814457e-17,
+      "finite_primal": true,
+      "finite_dual": true
+    },
+    {
+      "kind": "poisson_log",
+      "initial_objective": 1434.2119422614437,
+      "final_objective": 1420.7607035883564,
+      "objective_drop": 13.451238673087346,
+      "iterations": 89,
+      "stabilized": true,
+      "certified": true,
+      "relative_gap": 5.257361491713791e-12,
+      "kkt_max_residual": 6.949500604012307e-09,
+      "dual_feasibility_violation": 1.3877787807814457e-17,
+      "finite_primal": true,
+      "finite_dual": true
+    },
+    {
+      "kind": "kl",
+      "initial_objective": 44.69531647907482,
+      "final_objective": 35.36156324565539,
+      "objective_drop": 9.33375323341943,
+      "iterations": 132,
+      "stabilized": true,
+      "certified": true,
+      "relative_gap": 1.1601227298212919e-10,
+      "kkt_max_residual": 4.33717100429289e-09,
+      "dual_feasibility_violation": 1.3877787807814457e-17,
+      "finite_primal": true,
+      "finite_dual": true
+    },
+    {
+      "kind": "xlogx",
+      "initial_objective": 0.0,
+      "final_objective": -536.0003457867916,
+      "objective_drop": 536.0003457867916,
+      "iterations": 40,
+      "stabilized": true,
+      "certified": true,
+      "relative_gap": 0.0,
+      "kkt_max_residual": 8.766229211733617e-12,
+      "dual_feasibility_violation": 0.0,
+      "finite_primal": true,
+      "finite_dual": true
+    }
+  ],
+  "elapsed_seconds": 3.5652864250000675,
+  "interpretation": "stabilized is an iterate-change stop flag; certified is a numerical gap/KKT threshold flag, not a floating-point convergence proof."
+}

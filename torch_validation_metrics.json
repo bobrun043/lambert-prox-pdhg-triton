@@ -1,0 +1,44 @@
+{
+  "cuda_available": false,
+  "device_executed": "cpu",
+  "float32": {
+    "all_converged": true,
+    "log_only": 2,
+    "max_q_relative_vs_oracle_rounded": 1.5408956244300498e-07,
+    "max_residual_absolute": 0.001953125,
+    "max_residual_normalized": 1.7881393432617188e-07,
+    "p99_residual_absolute": 1.9073486328125e-06,
+    "points": 110008
+  },
+  "float64": {
+    "all_converged": true,
+    "log_only": 2,
+    "max_q_relative_vs_oracle_rounded": 4.431599415545027e-16,
+    "max_residual_absolute": 9.094947017729282e-13,
+    "max_residual_normalized": 3.3306690738754696e-16,
+    "p99_residual_absolute": 3.552713678800501e-15,
+    "points": 110008
+  },
+  "kkt_fp32_max_normalized": {
+    "exp": 6.548846727127966e-07,
+    "gaussian": 2.930067239503842e-06,
+    "kl": 4.220008850097656e-05,
+    "neglog": 1.9144842156038067e-07,
+    "poisson_intensity": 1.830200915264868e-07,
+    "poisson_log": 4.839064331463305e-07,
+    "xlogx": 3.7103891372680664e-05
+  },
+  "kkt_fp64_max_normalized": {
+    "exp": 8.257283745649602e-16,
+    "gaussian": 4.930359462504776e-15,
+    "kl": 5.039522257061416e-14,
+    "neglog": 3.7298666810056906e-16,
+    "poisson_intensity": 3.194505753496202e-16,
+    "poisson_log": 7.927686285214008e-16,
+    "xlogx": 5.934142066621462e-14
+  },
+  "pytest_returncode": 0,
+  "pytest_stdout": "............                                                             [100%]\n12 passed in 2.22s\n",
+  "python": "3.12.13",
+  "torch": "2.13.0+cpu"
+}

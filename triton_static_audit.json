@@ -1,0 +1,46 @@
+{
+  "schema": "triton-static-audit-v1",
+  "findings": [
+    {
+      "id": "T-AUDIT-001",
+      "severity": "material",
+      "scope": "elementwise+stencil",
+      "finding": "Candidate Halley uses four value-coordinate iterations rather than the canonical six-pass bi-coordinate primitive.",
+      "evidence": true,
+      "consequence": "Equivalence must be established empirically on CUDA; it is not true by construction."
+    },
+    {
+      "id": "T-AUDIT-002",
+      "severity": "material",
+      "scope": "exp and poisson_log",
+      "finding": "Candidate reconstructs v-u or d-u instead of canonical q-log(lambda).",
+      "evidence": true,
+      "consequence": "Possible cancellation for large positive matched terms; wide-domain tests are mandatory."
+    },
+    {
+      "id": "T-AUDIT-003",
+      "severity": "material",
+      "scope": "KL",
+      "finding": "Candidate replaces y=0 by an epsilon floor instead of implementing the exact zero boundary.",
+      "evidence": true,
+      "consequence": "The candidate computes a regularized problem at y=0, not the canonical prox."
+    },
+    {
+      "id": "T-AUDIT-004",
+      "severity": "scope",
+      "scope": "stencil",
+      "finding": "Fused stencil candidate has no poisson_log mode.",
+      "evidence": true,
+      "consequence": "Stencil coverage is six fidelity modes, not seven."
+    },
+    {
+      "id": "T-AUDIT-005",
+      "severity": "positive",
+      "scope": "stencil",
+      "finding": "Candidate wrappers pass runtime strides and use distinct output buffers.",
+      "evidence": true,
+      "consequence": "The intended stride-safe and no-in-place contracts are visible in source, but still require CUDA execution."
+    }
+  ],
+  "all_evidence_patterns_found": true
+}
